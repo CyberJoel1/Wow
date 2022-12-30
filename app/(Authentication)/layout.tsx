@@ -7,7 +7,7 @@ export default function AuthLayout({ children }: {
 }) {
   return (
  <>
- <Header title='Registro'/>
+ 
       <div className='w-full px-[10%] min-h-[calc(90vh_-_10px)] font-bodyFont  pt-[5%]'>
     {children}
       </div>
