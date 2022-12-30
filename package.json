@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3002",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -18,7 +18,7 @@
     "crypto-js": "^4.1.1",
     "flowbite": "^1.5.3",
     "flowbite-react": "^0.2.0",
-    "next": "^13.0.3",
+    "next": "^13.1.1-canary.1",
     "postcss": "^8.4.17",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
