@@ -1,11 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
+  reactStrictMode: false,
   swcMinify: true,
-  experimental: {
-    // Required:
-    appDir: true,
-  },
-};
+  webpack: (config, options) => {
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    })
 
-module.exports = nextConfig;
+    return config
+  },
+  experimental: {
+    appDir: true,
+    allowMiddlewareResponseBody:true
+  }
+}
+
+module.exports = nextConfig
