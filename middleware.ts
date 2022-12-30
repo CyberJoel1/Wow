@@ -10,10 +10,7 @@ export const config = {
 export function middleware(request: NextRequest) {
   const jwt = request.cookies.get("token");
   
-  if((request.nextUrl.pathname.startsWith('/'))){
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
-  
+
   if(!jwt){
     console.log('hola')
     if((request.nextUrl.pathname.startsWith('/login'))){
@@ -31,8 +28,10 @@ export function middleware(request: NextRequest) {
     }else if((request.nextUrl.pathname.startsWith('/register'))){
       return NextResponse.redirect(new URL("/social", request.url));
     }
-    if ((request.nextUrl.pathname.startsWith('/'))) {
+    else if((request.nextUrl.pathname.startsWith('/social'))){
       return;
+    }     else {
+      return NextResponse.redirect(new URL("/social", request.url));
     }
   }
 
