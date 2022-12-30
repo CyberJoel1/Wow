@@ -13,17 +13,20 @@ export function middleware(request: NextRequest) {
   if(!jwt){
     console.log('hola')
     if((request.nextUrl.pathname.startsWith('/login'))){
-      console.log('aqui hola')
       return;
     }else if((request.nextUrl.pathname.startsWith('/register'))){
-      console.log('aqui2 hola')
       return;
-    } else {
-      console.log('aqui3 hola')
+    }
+     else {
       return NextResponse.redirect(new URL("/login", request.url));
     }
     
   }else{
+    if((request.nextUrl.pathname.startsWith('/login'))){
+      return NextResponse.redirect(new URL("/social", request.url));
+    }else if((request.nextUrl.pathname.startsWith('/register'))){
+      return NextResponse.redirect(new URL("/social", request.url));
+    }
     if ((request.nextUrl.pathname.startsWith('/'))) {
       return;
     }
