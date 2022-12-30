@@ -115,7 +115,7 @@ const FormRegister = (props: Props) => {
                         onChange={(e) => {
                             setNombreCompleto({ ...nombreCompleto, firstName: e.target.value });
                         }}
-                        value={nombreCompleto.firstName}
+                        value={nombreCompleto?.firstName}
 
                     />
                 </div>
@@ -132,7 +132,7 @@ const FormRegister = (props: Props) => {
                         placeholder="Estefania"
                         required={true}
                         shadow={true}
-                        value={nombreCompleto.twoName}
+                        value={nombreCompleto?.twoName}
                         onChange={(e) => {
                             setNombreCompleto({ ...nombreCompleto, twoName: e.target.value });
                         }}
@@ -151,7 +151,7 @@ const FormRegister = (props: Props) => {
                         placeholder="Monteros"
                         required={true}
                         shadow={true}
-                        value={nombreCompleto.firstSurName}
+                        value={nombreCompleto?.firstSurName}
                         onChange={(e) => {
                             setNombreCompleto({ ...nombreCompleto, firstSurName: e.target.value });
                         }}
@@ -170,7 +170,7 @@ const FormRegister = (props: Props) => {
                         placeholder="Torres"
                         required={true}
                         shadow={true}
-                        value={nombreCompleto.lastSurName}
+                        value={nombreCompleto?.lastSurName}
                         onChange={(e) => {
                             setNombreCompleto({ ...nombreCompleto, lastSurName: e.target.value });
                         }}
@@ -207,7 +207,7 @@ const FormRegister = (props: Props) => {
                         type="password"
                         required={true}
                         shadow={true}
-                        value={dataRegister.password}
+                        value={dataRegister?.password}
                         onChange={(e) => {
                             setData({ ...dataRegister, password: e.target.value });
                         }}
@@ -245,7 +245,7 @@ const FormRegister = (props: Props) => {
                         placeholder="joel11"
                         required={true}
                         shadow={true}
-                        value={dataRegister.userName}
+                        value={dataRegister?.userName}
                         onChange={(e) => {
                             setData({ ...dataRegister, userName: e.target.value });
                         }}
@@ -264,7 +264,7 @@ const FormRegister = (props: Props) => {
                         type="email"
                         required={true}
                         shadow={true}
-                        value={dataRegister.addressEmail}
+                        value={dataRegister?.addressEmail}
                         onChange={(e) => {
                             setData({ ...dataRegister, addressEmail: e.target.value });
                         }}
@@ -283,7 +283,7 @@ const FormRegister = (props: Props) => {
                         type="text"
                         required={true}
                         shadow={true}
-                        value={dataRegister.identification}
+                        value={dataRegister?.identification}
                         onChange={(e) => {
                             setData({ ...dataRegister, identification: e.target.value });
                         }}

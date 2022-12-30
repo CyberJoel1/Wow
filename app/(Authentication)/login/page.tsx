@@ -1,13 +1,13 @@
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import FormLogin from '../../../components/Login/FormLogin'
 import Link from 'next/link'
 
 
 
-const page = async  () => {
-  
+const page =   () => {
+
   return (
     
     <div className='flex justify-center items-center'>

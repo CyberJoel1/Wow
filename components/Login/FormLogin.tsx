@@ -9,6 +9,7 @@ import { EnvironmentLogin } from "./ButtonLogin";
 import { NotificationSuccess } from "../../utils/SweetLibrary/SuccessNotification";
 import { useRouter } from 'next/navigation';
 import { ErrorNotification } from "../../utils/SweetLibrary/ErrorNotification";
+import { CONFIG } from "../../utils/Config/host";
 
 type Props = {}
 
@@ -39,7 +40,7 @@ async function getLogin(data: loginFormat, router: any) {
     
     try {
 
-        const response = await (await fetch('http://localhost:3000/graphql', options)).json();
+        const response = await (await fetch(CONFIG.host+'/graphql', options)).json();
         if (response.errors == undefined) {
 
             let login = await (await fetch("/api/login", {
@@ -74,6 +75,7 @@ async function getLogin(data: loginFormat, router: any) {
 
 const FormLogin = (props: Props) => {
     const [data, setData] = useState({ email: '', password: '' });
+    
     const router = useRouter();
     console.log("renderizado")
     return (
