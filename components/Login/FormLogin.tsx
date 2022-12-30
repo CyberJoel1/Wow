@@ -95,7 +95,7 @@ const FormLogin = (props: Props) => {
                         placeholder="name@waroom.com"
                         required={true}
                         shadow={true}
-                        value={data.email}
+                        value={data?.email}
                         onChange={(e) => {
                             setData({ ...data, email: e.target.value })
                         }}
@@ -113,7 +113,7 @@ const FormLogin = (props: Props) => {
                         type="password"
                         required={true}
                         shadow={true}
-                        value={data.password}
+                        value={data?.password}
                         onChange={(e) => {
                             setData({ ...data, password: e.target.value })
                         }}
@@ -131,8 +131,8 @@ const FormLogin = (props: Props) => {
                     <Button onClick={(event) => {
                         event.preventDefault();
                         getLogin({
-                            email: data.email
-                            , password: data.password,
+                            email: data?.email
+                            , password: data?.password,
 
                         }, router);
                     }} >Iniciar sesion</Button>
