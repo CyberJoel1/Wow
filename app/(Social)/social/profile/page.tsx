@@ -1,8 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import CardProfile from '../../../../components/Profile/CardProfile'
-
-
 import TabsProfile from '../../../../components/Profile/TabsProfile'
 
 type Props = {}

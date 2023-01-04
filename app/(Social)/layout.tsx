@@ -1,6 +1,11 @@
 'use client'
-
+import Leaflet from 'leaflet';
+import * as ReactLeaflet from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from "react";
+
+
+
 
 export default function SocialLayout({ children }: {
   children: React.ReactNode
@@ -15,9 +20,9 @@ export default function SocialLayout({ children }: {
 }
   return (
  <div className="bg-stone-100">
-
+    
     {children}
-  
+    
       </div>
   );
 }

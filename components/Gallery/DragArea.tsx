@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Image from 'next/image'
 import styled from "styled-components";
+import { useGlobalContext } from "../../app/Context/store";
 
 type Props = {
   data?: boolean;
@@ -12,6 +13,7 @@ function DragArea({ data }: Props) {
   const [ImageSelectedPrevious, setImageSelectedPrevious] = useState<any[any]>([]);
 
 
+  const { arrayBlobs, setArrayBlobs } = useGlobalContext();
   useEffect(() => {
     if (!data) {
       setImageSelectedPrevious([]);
@@ -40,10 +42,12 @@ function DragArea({ data }: Props) {
       var file = arrayFiles[i];
       const fileType = file['type'];
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-      var url = URL.createObjectURL(file);
+      var url = ''
+      url =URL.createObjectURL(file);
       if (!ImageSelectedPrevious.includes(url) && validImageTypes.includes(fileType)) {
         console.log(ImageSelectedPrevious.includes(url))
         arrayBlob.push(url);
+        setArrayBlobs([...arrayBlobs, file]);
       }
 
 

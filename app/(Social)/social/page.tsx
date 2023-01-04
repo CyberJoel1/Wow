@@ -3,12 +3,13 @@
 import React, { Suspense, useState } from 'react'
 import SchemaInsertPublication from '../../../components/Publication/formatInsertPublication/SchemaInsertPublication';
 import SchemaPublication from '../../../components/Publication/formatPublication/SchemaPublication';
+import { useGlobalContext } from '../../Context/store';
 
 
 type Props = {}
 
 const page = (props: Props) => {
-  
+  const { datas, setDatas } = useGlobalContext();
   return (
     <>
     
@@ -17,11 +18,13 @@ const page = (props: Props) => {
     </div>
     
     <div className='grid grid-cols-7'>
+      
     <div className='md:col-start-3 md:col-end-6 col-span-7 bg-stone-100 rounded-lg mt-6 mb-3 drop-shadow-lg'>
     
     <SchemaInsertPublication/>
-    
+
     </div>
+    
     <div className='md:col-start-3 md:col-end-6 col-span-7 bg-stone-100 rounded-lg mt-6 mb-3 drop-shadow-lg'>
       <SchemaPublication title='Noticia #1' photo='/foto1.jpg' fechaCreacion={new Date()} comment={'Se vende esta casa'} />
     </div>
