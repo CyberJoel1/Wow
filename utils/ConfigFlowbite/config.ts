@@ -53,7 +53,21 @@ export const jsonConfigStyle = {
               on: 'w-full rounded-t-lg object-cover md:h-auto md:w-48 md:rounded-none md:rounded-l-lg',
           },
       },
-    }
+    },
+    modal: {
+      base: 'fixed top-0 right-0 left-0 z-50 h-modal overflow-y-auto overflow-x-hidden md:inset-0 md:h-full',
+      show: {
+          on: 'flex bg-gray-900 bg-opacity-50 dark:bg-opacity-80',
+          off: 'hidden',
+      },
+      content: {
+          base: 'relative h-full w-full p-4 md:h-full',
+          inner: 'relative rounded-lg bg-white shadow dark:bg-gray-700',
+      },
+      body: {
+          base: 'p-6',
+          popup: 'pt-0',
+      }}
 
   },
 };
