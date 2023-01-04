@@ -9,7 +9,8 @@ export const config = {
 
 export function middleware(request: NextRequest) {
   const jwt = request.cookies.get("token");
-  
+
+
 
   if(!jwt){
     console.log('hola')
