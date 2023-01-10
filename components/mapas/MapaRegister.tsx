@@ -15,7 +15,7 @@ type Props = {
 export const ChangeView = React.memo(({ coords, zoom }: any) => {
   const { zooms } = useGlobalContext();
   const map = useMap();
-  console.log(zooms);
+ 
   map.setView(coords, zooms);
 
   return null;

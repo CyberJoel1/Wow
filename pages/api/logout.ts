@@ -6,7 +6,7 @@ export default function logoutHandler(req:any, res:any) {
     return res.status(401).json({ error: "Not logged in" });
   }
 
-  const serialized = serialize("myTokenName", '', {
+  const serialized = serialize("token", '', {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",

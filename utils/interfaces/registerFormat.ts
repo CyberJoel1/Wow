@@ -4,5 +4,6 @@ export interface registerFormat{
     password: string,
     userName: string,
     dateBirth?: Date,
-    addressEmail: string
+    addressEmail: string,
+    typeUser: string
 }

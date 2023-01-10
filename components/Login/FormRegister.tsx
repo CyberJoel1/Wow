@@ -8,80 +8,28 @@ import { NotificationSuccess } from '../../utils/SweetLibrary/SuccessNotificatio
 import { ErrorNotification } from '../../utils/SweetLibrary/ErrorNotification';
 import { useRouter } from 'next/navigation';
 import { CONFIG } from '../../utils/Config/host';
+import { QueryRegister } from '../../utils/Queries/User/RegisterQuery';
 type Props = {}
 
-
-
- async function nameComplete(nombres: any): Promise<string> {
-    const { firstName, twoName, firstSurName, lastSurName } = nombres;
-
-    let returnName = firstName + " " + twoName + " " + firstSurName + " " + lastSurName;
-    return  returnName;
-}
-
-async function registerUser(data: registerFormat, router: any, repeatPassword: string) {
-    let mensajeError = '';
-    try {
-       
-        (Object.keys(data) as (keyof typeof data)[]).forEach((key, index) => {
-            if (data[key] === '') {
-                throw new Error('Hay datos faltantes'+ key);
-            }
-        });
-        if (data.password !== repeatPassword) {
-            throw new Error("Por favor verifica que las contraseñas sean iguales");
-        }
-        const headers = {
-            'content-type': 'application/json',
-        }
-        const requestBody = {
-            query: `mutation Mutation($createUserInput: CreateUserInput!) {
-            usercreate(createUserInput: $createUserInput) {
-              userName
-            }
-          }`,
-            variables: {
-                createUserInput: {
-                    fullName: data.fullName,
-                    identification: data.identification,
-                    password: data.password,
-                    userName: data.userName,
-                    dateBirth: data.dateBirth,
-                    addressEmail: data.addressEmail
-                }
-            }
-
-        };
-
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(requestBody),
-            headers
-        };
-
-        const response = await (await fetch(CONFIG.host+'/graphql', options)).json();
-
-        if (response.errors == undefined) {
-            NotificationSuccess.successNotificationLogin("Se ha registrado correctamente");
-            router.push('/login');
-            return;
-        }
-        let errores = response.errors[0].extensions.response;
-        mensajeError = (typeof errores.message) == 'object' ? errores.message[0] : errores.message;
-    } catch (error: any) {
-        mensajeError = error.message;
-    }
-
-    ErrorNotification.errorNotificationLogin(mensajeError);
-}
-
 const FormRegister = (props: Props) => {
-    let initialValue = { userName: '', addressEmail: '', identification: '', fullName: '', password: '' };
+    let initialValue = { userName: '', addressEmail: '', identification: '', fullName: '', password: '' , typeUser:'Masculino'};
     const [dataRegister, setData] = useState<registerFormat>(initialValue);
     const [nombreCompleto, setNombreCompleto] = useState<any>({ firstName: '', twoName: '', firstSurName: '', lastSurName: '' });
     const [repeatPassword, setRepeatPasswor] = useState("");
     const [accion, setAccion] = useState(false);
     const router = useRouter();
+
+    async function nameComplete(nombres: any): Promise<string> {
+        const { firstName, twoName, firstSurName, lastSurName } = nombres;
+    
+        let returnName = firstName + " " + twoName + " " + firstSurName + " " + lastSurName;
+        return  returnName;
+    }
+    const getRegister = async (data: registerFormat, router: any, repeatPassword: string) => {
+        await QueryRegister.registerUser(data, router, repeatPassword);
+
+    };
+
     useEffect(() => {
         
         }, [])
@@ -89,7 +37,7 @@ const FormRegister = (props: Props) => {
 
     useEffect(() => {
         if(dataRegister!==initialValue){
-        registerUser(dataRegister, router, repeatPassword);
+        getRegister(dataRegister, router, repeatPassword);
         setData(initialValue);
     }   
         }, [accion])
@@ -318,6 +266,10 @@ const FormRegister = (props: Props) => {
                     <Select
                         id="countries"
                         required={true}
+                        value={dataRegister?.typeUser}
+                        onChange={(e) => {
+                            setData({ ...dataRegister, typeUser: e.target.value });
+                        }}
                     >
                         <option>
                             Masculino

@@ -3,6 +3,7 @@ export interface updateFormat{
     identification: string,
     password: string,
     userName: string,
-    dateBirth?: Date,
-    addressEmail: string
+    dateBirth: Date,
+    addressEmail: string,
+    foto?:any
 }

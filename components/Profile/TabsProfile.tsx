@@ -1,6 +1,6 @@
 "use client"
-import { Tabs } from 'flowbite-react'
-import React, { useEffect, useState } from 'react'
+import { Alert, Tabs } from 'flowbite-react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { HashtagIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import SectionPublication from './publications/SectionPublication'
@@ -8,43 +8,83 @@ import FormRegister from '../Login/FormRegister'
 import SectionUpdate from './publications/SectionUpdate'
 import SectionInformation from './publications/SectionInformation';
 import SectionContact from './publications/SectionContact';
-type Props = {}
+import { QueryLogin } from '../../utils/Queries/User/LoginQueries';
+import { useGlobalContext } from '../../app/Context/store';
+
+type Props = {
+    profile: string
+}
 
 const TabsProfile = (props: Props) => {
-    const [render, setRender] = useState(false);
-  
+    const { profile } = props;
+   
+    const { equalUser, setIsEqualUser, fotoUser, setFotoUser } = useGlobalContext();
+    
+
+    const checkUser = async () => {
+        const response = await QueryLogin.checkUser();
+        console.log("respuesta del check................")
+        console.log(response)
+        if(response != null || response !=undefined ){
+            setIsEqualUser(response['data']['checkUser'][0] != profile);
+            console.log("response ..............")
+            console.log(profile)
+            console.log(response['data']['checkUser'][0])
+        }
+        console.log("response ..... Joel")
+        console.log(response)
+    };
+
     useEffect(() => {
-      setRender(true);
-   }, []);
-   if (!render) {
-    return null;
-  }
+        checkUser();
+        
+    }, []);
+
     return (
 
         <div className='bg-white h-full drop-shadow-lg overflow-auto max-h-screen'>
             <Tabs.Group
                 aria-label="Tabs with icons"
                 style="underline"
+                
             >
                 <Tabs.Item
                     title="PUBLICACIONES"
                     icon={UserCircleIcon}
-                   
-                >
-                    <SectionPublication/>
-                </Tabs.Item>
-                <Tabs.Item
                     active={true}
+                >
+                    <SectionPublication profile={profile} />
+
+
+                </Tabs.Item>
+
+
+                <Tabs.Item
                     title="ACTUALIZACIÓN DE DATOS"
                     icon={UserCircleIcon}
+                    
                 >
-                    <SectionUpdate/>
+                    {!equalUser && 
+                    <SectionUpdate />}
+                    {equalUser && 
+                    <Alert
+                    color="failure"
+                    icon={UserCircleIcon}
+                  >
+                    <span>
+                      <span className="font-medium">
+                        Alerta!
+                      </span>
+                      {' '}Solo la persona dueña de la cuenta puede hacer cambios.
+                    </span>
+                  </Alert>}
                 </Tabs.Item>
+
                 <Tabs.Item
                     title="INMUEBLES"
                     icon={UserCircleIcon}
                 >
-                    <SectionInformation/>
+                    <SectionInformation />
                 </Tabs.Item>
                 <Tabs.Item
                     title="AMIGOS"

@@ -17,7 +17,9 @@ function DragArea({ data }: Props) {
   useEffect(() => {
     if (!data) {
       setImageSelectedPrevious([]);
+      setArrayBlobs([]);
     }
+    
     return () => {
 
     }
@@ -25,7 +27,9 @@ function DragArea({ data }: Props) {
 
 
   const changeImage = (e: any) => {
+    const prevArrayBlob:any =[...arrayBlobs];
     let arrayBlob: string[] = [];
+    let arrayFile: any[]=[];
     let arrayFiles = e.target.files;
     if ((ImageSelectedPrevious.length) > 3) {
       return;
@@ -44,15 +48,20 @@ function DragArea({ data }: Props) {
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
       var url = ''
       url =URL.createObjectURL(file);
+
       if (!ImageSelectedPrevious.includes(url) && validImageTypes.includes(fileType)) {
-        console.log(ImageSelectedPrevious.includes(url))
+        
         arrayBlob.push(url);
-        setArrayBlobs([...arrayBlobs, file]);
+        arrayFile.push(file)
+        prevArrayBlob.push(file)
+
       }
 
 
     }
+    setArrayBlobs([...prevArrayBlob]);
     setImageSelectedPrevious([...ImageSelectedPrevious, ...arrayBlob])
+    
 
 
 
@@ -73,8 +82,8 @@ function DragArea({ data }: Props) {
                   d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
               <span className="font-medium text-gray-600">
-                Drop files to Attach, or
-                <span className="text-blue-600 underline">browse</span>
+                Sube las imagenes de tu inmueble
+                <span className="text-blue-600 underline"> al navegador</span>
               </span>
             </span>
             <input

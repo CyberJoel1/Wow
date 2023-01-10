@@ -5,93 +5,45 @@ import { NotificationSuccess } from '../../../utils/SweetLibrary/SuccessNotifica
 import { updateFormat } from '../../../utils/interfaces/updateFormat';
 import { useRouter } from 'next/router';
 import { CONFIG } from '../../../utils/Config/host';
+import { QueryUpdater } from '../../../utils/Queries/User/UpdateQuery';
+import moment from 'moment';
+import { useGlobalContext } from '../../../app/Context/store';
 
 type Props = {}
-function nameComplete(nombres: any): string {
-    const { firstName, twoName, firstSurName, lastSurName } = nombres;
 
-    let returnName = firstName + " " + twoName + " " + firstSurName + " " + lastSurName;
-    return returnName;
-}
-
-async function registerUser(data: updateFormat, repeatPassword: string) {
-    let mensajeError = '';
-    try {
-        (Object.keys(data) as (keyof typeof data)[]).forEach((key, index) => {
-            if (data[key] === '') {
-                throw new Error('Hay datos faltantes');
-            }
-        });
-        if (data.password !== repeatPassword) {
-            throw new Error("Por favor verifica que las contraseñas sean iguales");
-        }
-
-        let login = await (await fetch("/api/profile", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })).json();
-        const headers = {
-            'content-type': 'application/json',
-            'Authorization': 'Bearer ' + login.token,
-        }
-        const requestBody = {
-            query: `mutation UpdateUser($updateUser: UpdateUserInput!) {
-                updateUser(updateUser: $updateUser) {
-                  message
-                }
-              }`,
-            variables: {
-                updateUser: {
-                    id: 4,
-                    fullName: data.fullName
-                }
-            }
-
-        };
-
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(requestBody),
-            headers
-        };
-
-        const response = await (await fetch(CONFIG.host+'/graphql', options)).json();
-
-        if (response.errors == undefined) {
-            NotificationSuccess.successNotificationLogin(response.message);
-            return;
-        }
-        let errores = response.errors[0].extensions.response;
-        mensajeError = (typeof errores.message) == 'object' ? errores.message[0] : errores.message;
-    } catch (error: any) {
-        mensajeError = error.message;
-    }
-
-    ErrorNotification.errorNotificationLogin(mensajeError);
-}
 
 
 const SectionUpdate = (props: Props) => {
-    let initialValue={ userName: '', addressEmail: '', identification: '', fullName: '', password: '' };
+    let initialValue = { userName: '', addressEmail: '', identification: '', fullName: '', password: '', foto: '', dateBirth: new Date() };
     const [dataRegister, setData] = useState<updateFormat>(initialValue);
     const [nombreCompleto, setNombreCompleto] = useState<any>({ firstName: '', twoName: '', firstSurName: '', lastSurName: '' });
     const [repeatPassword, setRepeatPasswor] = useState("");
+    const {setRenderProfile, renderProfile} = useGlobalContext();
     const [accion, setAccion] = useState(false);
+    function nameComplete(nombres: any): string {
+        const { firstName, twoName, firstSurName, lastSurName } = nombres;
 
+        let returnName = firstName + " " + twoName + " " + firstSurName + " " + lastSurName;
+        return returnName;
+    }
+
+    const getUpdater = async (data: updateFormat, repeatPassword: string) => {
+        const response = await QueryUpdater.updateUser(data, repeatPassword);
+        if(response != null){
+            setRenderProfile(!renderProfile);
+        }
+    };
 
     useEffect(() => {
-      if(dataRegister!==initialValue){
-        registerUser(dataRegister, repeatPassword);
-      }
-    
-      return () => {
-        
-      }
+        if (dataRegister !== initialValue) {
+            getUpdater(dataRegister, repeatPassword);
+        }
+
+        return () => {
+
+        }
     }, [accion])
-    
+
     return (
 
         <div>
@@ -184,7 +136,8 @@ const SectionUpdate = (props: Props) => {
                     <TextInput
                         id="email1"
                         type="date"
-
+                        
+                        // value={dataRegister.dateBirth.toISOString().slice(0, 10)}
                         required={true}
                         shadow={true}
                         onChange={(e) => {
@@ -297,6 +250,10 @@ const SectionUpdate = (props: Props) => {
                     <FileInput
                         id="file"
                         helperText="Subo tu foto de perfil, si quieres que los demás te vean"
+                        accept="image/*"
+                        onChange={(e:any) => {
+                            setData({ ...dataRegister, foto: e.target.files[0] });
+                        }}
                     />
                 </div>
                 <div className='col-span-2'>
@@ -304,6 +261,7 @@ const SectionUpdate = (props: Props) => {
                     <Button onClick={() => {
                         setData({ ...dataRegister, fullName: nameComplete(nombreCompleto) });
                         setAccion(!accion);
+
                     }}>Actualizar</Button>
 
                 </div>

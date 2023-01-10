@@ -8,22 +8,25 @@ import { useState } from 'react';
 import ModalUtil from '../../../utils/ModalUtil';
 import InsertPublication from '../particles/InsertPublication';
 
-type Props = {}
+type Props = {
+  setRenderData: React.Dispatch<React.SetStateAction<boolean>>,
+  renderData:boolean
+}
 
 const SchemaInsertPublication = (props: Props) => {
+  const {setRenderData, renderData} = props;
   const [data, setData] = useState(false);
   const [render, setRender] = useState(false);
   
-  useEffect(() => {
-    setRender(true);
- }, []);
+  
+
 
   return (
     <>
       <div className='p-3'>
       {/* <HeaderInsertPublication/> */}
         <InsertPublication data={data} setData={setData} />
-        <ModalUtil data={data} setData={setData}/>
+        <ModalUtil data={data} setData={setData} setRenderData={setRenderData} renderData={renderData}/>
         {/* <FooterInsertPublication/> */}
       </div>
       

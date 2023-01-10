@@ -4,11 +4,15 @@ import Image from 'next/image'
 import { DocumentTextIcon, HomeIcon, WrenchIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
 import { Rating } from 'flowbite-react'
-type Props = {}
+import { useGlobalContext } from '../../app/Context/store'
+type Props = {
+    fullName?: string;
+}
 
 const CardProfile = (props: Props) => {
+    const {fullName} = props;
     const [render, setRender] = useState(false);
-
+    const { equalUser, setIsEqualUser, fotoUser, setFotoUser, user } = useGlobalContext();
     useEffect(() => {
         setRender(true);
     }, []);
@@ -19,9 +23,9 @@ const CardProfile = (props: Props) => {
         <div>
             <div className=' bg-white h-[350px] pt-4 m-auto md:m-0 drop-shadow-lg'>
                 <div className='w-[42%] h-[110px] relative m-auto'>
-                    <Image src={'/perfil.jpg'} alt={'Hola'} fill className='rounded-full border-solid border-2 border-black cursor-pointer'></Image>
+                    <Image src={fotoUser || '/usuario.png'} alt={'Hola'} fill className='rounded-full cursor-pointer'></Image>
                 </div>
-                <p className='text-center lg:text-xl text-sm font-bodyFont tracking-[.15em] pt-3 text-gray-600'>JOEL VELASCO</p>
+                <p className='text-center lg:text-xl text-sm font-bodyFont tracking-[.15em] pt-3 text-gray-600'>{fullName}</p>
                 <p className='text-center text-sm font-bodyFont tracking-[.15em] pt-3 text-gray-600'>Cliente jvelasco</p>
                 {/* <div className='flex justify-center'>
                     <Rating className='m-auto'>

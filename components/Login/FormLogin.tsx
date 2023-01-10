@@ -1,83 +1,29 @@
 "use client";
 import { Button, Checkbox, Flowbite, Label, TextInput } from "flowbite-react";
-import Swal, { } from 'sweetalert2'
 import Link from 'next/link';
 import { useState } from "react";
-import { EncryptedToken } from "../../utils/Encrypted/encryptedCookie";
 import { loginFormat } from "../../utils/interfaces/loginFormat";
-import { EnvironmentLogin } from "./ButtonLogin";
-import { NotificationSuccess } from "../../utils/SweetLibrary/SuccessNotification";
 import { useRouter } from 'next/navigation';
-import { ErrorNotification } from "../../utils/SweetLibrary/ErrorNotification";
-import { CONFIG } from "../../utils/Config/host";
+import { QueryLogin } from "../../utils/Queries/User/LoginQueries";
+import { useGlobalContext } from '../../app/Context/store';
+import { setToken } from "../../utils/Localstorage/ManageLocalStorage.User";
+
 
 type Props = {}
 
-async function getLogin(data: loginFormat, router: any) {
-
-    let mensajeError='';
-    const headers = {
-        'content-type': 'application/json',
-    }
-    const requestBody = {
-        query: `query Login($loginInput: LoginInput!) {
-        login(loginInput: $loginInput) {
-          token
-        }
-      }`,
-        variables: {
-            loginInput: {
-                addressEmail: data.email,
-                password: data.password
-            }
-        }
-    };
-    const options = {
-        method: 'POST',
-        body: JSON.stringify(requestBody),
-        headers
-    };
-    
-    try {
-
-        const response = await (await fetch(CONFIG.host+'/graphql', options)).json();
-        if (response.errors == undefined) {
-
-            let login = await (await fetch("/api/login", {
-                method: 'POST',
-                body: JSON.stringify({ token: response?.data.login.token }),
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })).json();
-            if (login.success != undefined) {
-                NotificationSuccess.successNotificationLogin("Usuario logueado correctamente");
-                router.push('/social');
-                return;
-            }
-        }
-        let errores = response.errors[0].extensions.response;
-        mensajeError = (typeof errores.message) == 'object' ? errores.message[0] : errores.message;
-    } catch (error:any) {
-        mensajeError= error.message;
-    }
-        ErrorNotification.errorNotificationLogin(mensajeError);
-
-
-
-
-
-
-
-
-}
 
 const FormLogin = (props: Props) => {
     const [data, setData] = useState({ email: '', password: '' });
-    
+    const {user, setUser} = useGlobalContext();
+
     const router = useRouter();
-    console.log("renderizado")
+    const getLogin = async (data: loginFormat, router: any) => {
+        const user = await QueryLogin.LoginEmail(data, router);
+        console.log("Informacion del usuario ...............")
+        const {foto, userName, fullName, addressEmail}= user['data']['login']['user'];
+        setToken({foto:foto||null,userName:userName, fullName:fullName,addressEmail:addressEmail });
+        //setUser({foto:foto||null,userName:userName, fullName:fullName, addressEmail:addressEmail});
+    };
     return (
 
         <>

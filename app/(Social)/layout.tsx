@@ -3,6 +3,7 @@ import Leaflet from 'leaflet';
 import * as ReactLeaflet from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from "react";
+import NavBar from '../../components/Profile/Navbar/NavBar';
 
 
 
@@ -20,7 +21,7 @@ export default function SocialLayout({ children }: {
 }
   return (
  <div className="bg-stone-100">
-    
+    <NavBar/>
     {children}
     
       </div>

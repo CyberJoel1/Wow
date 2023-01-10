@@ -21,12 +21,10 @@ const InsertPublication = (props: Props) => {
                 <Image src={'/foto1.jpg'} alt={'Hola'} fill className='rounded-full border-solid border-2 border-sky-200 cursor-pointer'></Image>
             </div>
             <div className=' text-opacity-90 text-black ml-1 p-1 grow h-full font-sans'>
-            <input type="text" id="last" name="last" placeholder='Escribe un comentario...' className='rounded-full w-full h-8 bg-blue-50' onClick={oNClick} />
+            <input type="text" id="last" name="last" placeholder='Publica tu inmueble' className='rounded-full w-full h-8 bg-blue-50' onClick={oNClick} />
 
             </div>
-            <div className='w-fit p-2 text-center bg-slate-300 flex hover:bg-slate-400 cursor-pointer h-9 text-black rounded-lg'>
-                <p className='self-center'>Publicar</p>
-            </div>
+
         </div>
     )
 }
