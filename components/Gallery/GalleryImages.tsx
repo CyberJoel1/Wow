@@ -15,7 +15,8 @@ const GalleryImages = ({fondoGallery='bg-black'}: Props) => {
 
     return (
         <>
-            <div className={'h-screen min-h-[450px] '.concat(fondoGallery)}>
+
+            {/* <div className={'h-screen min-h-[450px] '.concat(fondoGallery)}>
                 <div className='grid grid-rows-3 md:grid-cols-3 md:grid-rows-1 h-full'>
                     <div className='row-span-2 md:col-span-2 h-full'>
                         <SliderInteractive size={'h-full p-3'} />
@@ -39,7 +40,7 @@ const GalleryImages = ({fondoGallery='bg-black'}: Props) => {
 
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }
