@@ -4,7 +4,7 @@ import { QueryPublication } from "../Queries/Publication/PublicationsQueries";
 export class DeletePublications {
   public static async deletePublication(idPublication: number,userName:string) {
     let resultado: boolean= false;
-    Swal.fire({
+    const { value: file } = await Swal.fire({
       title: '¿Estás seguro/a de borrar la publicación?',
       text: "¡No podrás revertir esto!",
       icon: "error",
@@ -15,17 +15,17 @@ export class DeletePublications {
       color:'black',
       confirmButtonText: 'Si, ¡borrar publicación!',
       cancelButtonText:'Cancelar'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        resultado=true;
-        await QueryPublication.deletePublication(idPublication);
-        Swal.fire(
-          '¡Borrada!',
-          'Su publicación ha sido eliminada.',
-          'success',
-        )
-      }
     })
+
+    if(file){
+      resultado=true;
+      await QueryPublication.deletePublication(idPublication);
+      Swal.fire(
+        '¡Borrada!',
+        'Su publicación ha sido eliminada.',
+        'success',
+      )
+    }
       
      /* if (email) {
         Swal.fire({text:`El comentario ha sido cambiado a: ${email}`})
