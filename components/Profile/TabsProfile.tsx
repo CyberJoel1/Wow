@@ -10,6 +10,8 @@ import SectionInformation from './publications/SectionInformation';
 import SectionContact from './publications/SectionContact';
 import { QueryLogin } from '../../utils/Queries/User/LoginQueries';
 import { useGlobalContext } from '../../app/Context/store';
+import ShowPublicationLikes from '../Publication/typesShowPublication/ShowPublicationLikes'
+import ShowPublicationRecomendation from '../Publication/typesShowPublication/ShowPublicationRecomendation'
 
 type Props = {
     profile: string
@@ -17,15 +19,15 @@ type Props = {
 
 const TabsProfile = (props: Props) => {
     const { profile } = props;
-   
+
     const { equalUser, setIsEqualUser, fotoUser, setFotoUser } = useGlobalContext();
-    
+
 
     const checkUser = async () => {
         const response = await QueryLogin.checkUser();
         console.log("respuesta del check................")
         console.log(response)
-        if(response != null || response !=undefined ){
+        if (response != null || response != undefined) {
             setIsEqualUser(response['data']['checkUser'][0] != profile);
             console.log("response ..............")
             console.log(profile)
@@ -37,16 +39,16 @@ const TabsProfile = (props: Props) => {
 
     useEffect(() => {
         checkUser();
-        
+
     }, []);
 
     return (
 
-        <div className='bg-white h-full drop-shadow-lg overflow-auto max-h-screen'>
+        <div className='h-full drop-shadow-lg overflow-auto max-h-screen'>
             <Tabs.Group
                 aria-label="Tabs with icons"
                 style="underline"
-                
+
             >
                 <Tabs.Item
                     title="PUBLICACIONES"
@@ -62,42 +64,37 @@ const TabsProfile = (props: Props) => {
                 <Tabs.Item
                     title="ACTUALIZACIÓN DE DATOS"
                     icon={UserCircleIcon}
-                    
+
                 >
-                    {!equalUser && 
-                    <SectionUpdate />}
-                    {equalUser && 
-                    <Alert
-                    color="failure"
-                    icon={UserCircleIcon}
-                  >
-                    <span>
-                      <span className="font-medium">
-                        Alerta!
-                      </span>
-                      {' '}Solo la persona dueña de la cuenta puede hacer cambios.
-                    </span>
-                  </Alert>}
+                    {!equalUser &&
+                        <SectionUpdate />}
+                    {equalUser &&
+                        <Alert
+                            color="failure"
+                            icon={UserCircleIcon}
+                        >
+                            <span>
+                                <span className="font-medium">
+                                    Alerta!
+                                </span>
+                                {' '}Solo la persona dueña de la cuenta puede hacer cambios.
+                            </span>
+                        </Alert>}
                 </Tabs.Item>
 
-                <Tabs.Item
+                {/* <Tabs.Item
                     title="INMUEBLES"
                     icon={UserCircleIcon}
                 >
                     <SectionInformation />
-                </Tabs.Item>
+                </Tabs.Item> */}
                 <Tabs.Item
                     title="AMIGOS"
                     icon={UserCircleIcon}
                 >
-                    <SectionContact />
+                    <SectionContact profile={profile} />
                 </Tabs.Item>
-                <Tabs.Item
-                    disabled={true}
-                    title="Disabled"
-                >
-                    Disabled content
-                </Tabs.Item>
+
             </Tabs.Group>
         </div>
 

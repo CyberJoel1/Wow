@@ -6,6 +6,7 @@ import { useGlobalContext } from '../../../../Context/store';
 import { QueryLogin } from '../../../../../utils/Queries/User/LoginQueries';
 import { ErrorNotification } from '../../../../../utils/SweetLibrary/ErrorNotification';
 import { useRouter } from 'next/navigation';
+import RequestProfile from '../../../../../components/Profile/Friends/RequestsFriends/RequestProfile';
 
 
 type Props = {}
@@ -44,6 +45,7 @@ const profilePage = ({params,}: { params: { profile: string };}) => {
             <div className='p-3 col-span-8 md:col-span-2  max-h-full'>
 
                 <CardProfile fullName={profile} />
+                <RequestProfile profile={profile}/>
             </div>
             <div className='p-3 md:col-span-6 col-span-8 max-h-full '>
                 <TabsProfile profile={profile} />

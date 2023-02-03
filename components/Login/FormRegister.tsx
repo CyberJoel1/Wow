@@ -132,9 +132,11 @@ const FormRegister = (props: Props) => {
                         />
                     </div>
                     <TextInput
+                        
                         id="email1"
                         type="date"
-
+                        
+                        
                         required={true}
                         shadow={true}
                         onChange={(e) => {

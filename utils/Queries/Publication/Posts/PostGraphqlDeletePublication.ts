@@ -1,52 +1,37 @@
 import { CONFIG } from "../../../Config/host";
 import { publicationFormat } from "../../../interfaces/publicationFormat";
 import { returnToken } from "../../../Token/ReturnToken";
+import { useGlobalContext } from "../../../../app/Context/store";
 
-export async function PostPublicationDelete(
-    id:number
-  ) {
-/*
+export async function PostDeletePublication(
+  id:number
+) {
+  
+  const headers = {
+    "content-type": "application/json",
+    Authorization: "Bearer " + await returnToken(),
+  };
 
-    const headers = {
-      "content-type": "application/json",
-      Authorization: "Bearer " + await returnToken(),
-    };
-    
-  
-    const requestBody = {
-      query: `mutation UpdatePublication($updatePublicationInput: UpdatePublicationInput!) {
-        updatePublication(updatePublicationInput: $updatePublicationInput) {
-          titulo
-        }
-      }`,
-      variables: {
-        updatePublicationInput: {
-          titulo: data.titulo,
-          medida: data.medida,
-          longitud: data.longitud,
-          latitud: data.latitud,
-          habitaciones: data.habitaciones,
-          banos: data.banos,
-          message: data.mensaje,
-          photos: resultFilesNames,
-          tipo: data.tipo,
-          id:  id
-        },
-      },
-    };
+  const requestBody = {
+    query: `mutation RemovePublication($removePublicationId: Int!) {
+      removePublication(id: $removePublicationId) {
+        message
+      }
+    }`,
+    variables: {
+      removePublicationId:id
+    },
+  };
 
-    
+  const options = {
+    method: "POST",
+    body: JSON.stringify(requestBody),
+    headers,
+  };
+
+  const response = await (
+    await fetch(CONFIG.host + "/graphql", options)
+  ).json();
   
-    const options = {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-      headers,
-    };
-  
-    const response = await (
-      await fetch(CONFIG.host + "/graphql", options)
-    ).json();
-    
-    return response;*/
-  }
-  
+  return response;
+}

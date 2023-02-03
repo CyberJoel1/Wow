@@ -27,6 +27,7 @@ export async function GetPublication(profile: string) {
           foto
           fullName
           userName
+          addressEmail
         }
       }
     }`,

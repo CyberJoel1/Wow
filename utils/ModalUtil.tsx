@@ -16,21 +16,21 @@ type Props = {
   data: boolean; //apaga y prende el modal
   setRenderData: React.Dispatch<React.SetStateAction<boolean>>;
   renderData: boolean; //renderiza toda la parte de publicaiones
-  valueUpdate?:publicationFormat;
-  identity?:number;
-  renderPublication?:any; //renderiza la actual publicaión
-  setRenderPublication?:any;
+  valueUpdate?: publicationFormat;
+  identity?: number;
+  renderPublication?: any; //renderiza la actual publicaión
+  setRenderPublication?: any;
 }
 
 
 
 const ModalUtil = (props: Props) => {
-  const { data, setData, setRenderData, renderData, valueUpdate, identity, renderPublication, setRenderPublication} = props;
+  const { data, setData, setRenderData, renderData, valueUpdate, identity, renderPublication, setRenderPublication } = props;
   const { datas, setDatas, arrayBlobs, setArrayBlobs } = useGlobalContext();
-  let values: publicationFormat = { banos: 0, habitaciones: 0, latitud: datas.lat, longitud: datas.lng, medida: 0, mensaje: '', fotos: [], titulo: '', tipo:'venta'}
+  let values: publicationFormat = { banos: 0, habitaciones: 0, latitud: datas.lat, longitud: datas.lng, medida: 0, mensaje: '', fotos: [], titulo: '', tipo: 'venta' }
   const [initialValue, setInitialValue] = useState<publicationFormat>(valueUpdate || values);
 
-  
+
 
 
   const ref = React.useRef<HTMLDivElement>(null);
@@ -51,8 +51,8 @@ const ModalUtil = (props: Props) => {
   async function registerPublicationLocal(data: publicationFormat, arrayBlob: []) {
     console.log("coordenadas .......................coordenadas ..........");
     console.log(data)
-    data.latitud=datas.lat;
-    data.longitud=datas.lng;
+    data.latitud = datas.lat;
+    data.longitud = datas.lng;
     const errores = await QueryPublication.registerPublication(data, arrayBlob);
 
     if (!errores) {
@@ -64,8 +64,8 @@ const ModalUtil = (props: Props) => {
 
   }
 
-  async function updatePublicationLocal(data: publicationFormat, arrayBlob: [],id:number) {
-    const errores = await QueryPublication.updatePublication(data, id,arrayBlob);
+  async function updatePublicationLocal(data: publicationFormat, arrayBlob: [], id: number) {
+    const errores = await QueryPublication.updatePublication(data, id, arrayBlob);
     if (!errores) {
       setInitialValue(valueUpdate || values)
       setData(!data);
@@ -280,9 +280,9 @@ const ModalUtil = (props: Props) => {
         <Modal.Footer>
           <Button onClick={async (e) => {
             e.preventDefault();
-            (!identity)?(
-            await registerPublicationLocal(initialValue, arrayBlobs)):
-            await updatePublicationLocal(initialValue, arrayBlobs, identity)
+            (!identity) ? (
+              await registerPublicationLocal(initialValue, arrayBlobs)) :
+              await updatePublicationLocal(initialValue, arrayBlobs, identity)
           }}>
             Publicar Inmueble
           </Button>

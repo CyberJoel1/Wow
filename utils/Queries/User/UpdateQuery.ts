@@ -4,6 +4,9 @@ import { NotificationSuccess } from "../../SweetLibrary/SuccessNotification";
 import { returnToken } from "../../Token/ReturnToken";
 import { validationDataEmpty } from "../../Validations/ValidationDataEmpty";
 import { postFile } from "../Publication/Posts/PostFile";
+import { checkRequestFriendly } from "./Gets/checkRequestFriendly";
+import { confirmRequestFriendly } from "./Gets/confirmRequestFriendly";
+import { deleteFriendly } from "./Posts/DeleteFriendly";
 import { postGraphqlUpdater } from "./Posts/PostGraphqlUpdate";
 
 export class QueryUpdater {
@@ -28,6 +31,45 @@ export class QueryUpdater {
 
             if (response.errors == undefined) {
                 NotificationSuccess.successNotificationLogin(response.message);
+                return true;
+            }
+            let errores = response.errors[0].extensions.response;
+            mensajeError = (typeof errores.message) == 'object' ? errores.message[0] : errores.message;
+        } catch (error: any) {
+            mensajeError = error.message;
+        }
+    
+        ErrorNotification.errorNotificationLogin(mensajeError);
+    }
+
+    public static async deleteFriendlyUser(profile:string) {
+        let mensajeError = '';
+        try {
+           console.log("id aborrar ....................."+profile)
+            let response = await deleteFriendly(profile);
+    
+
+            if (response.errors == undefined) {
+                NotificationSuccess.successNotificationLogin(response.message);
+                return true;
+            }
+            let errores = response.errors[0].extensions.response;
+            mensajeError = (typeof errores.message) == 'object' ? errores.message[0] : errores.message;
+        } catch (error: any) {
+            mensajeError = error.message;
+        }
+    
+        ErrorNotification.errorNotificationLogin(mensajeError);
+    }
+
+    public static async updateConfirmRequest(idRelation:number) {
+        let mensajeError = '';
+        try {
+           
+            let response = await confirmRequestFriendly(idRelation);
+    
+
+            if (response.errors == undefined) {
                 return true;
             }
             let errores = response.errors[0].extensions.response;

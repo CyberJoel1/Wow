@@ -22,7 +22,10 @@ export async function middleware(request: NextRequest) {
       return;
     } else if (request.nextUrl.pathname.startsWith("/register")) {
       return;
-    } else if (request.nextUrl.pathname.startsWith("/")) {
+    } 
+    else if (request.nextUrl.pathname.startsWith("/home")) {
+      return;
+    }else if (request.nextUrl.pathname.startsWith("/")) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
   }

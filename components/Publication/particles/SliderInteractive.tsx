@@ -32,7 +32,7 @@ const SliderInteractive = (props: Props) => {
 
   const MapaLocalization = dynamic(() => import('../../mapas/MapaLocalization'), {
     loading: () => <div className='h-full'></div>,
-    ssr: true,
+    ssr: false,
 
   })
   return (
@@ -45,7 +45,7 @@ const SliderInteractive = (props: Props) => {
       </Carousel>
       </div>
        <div className='p-3 min-h-full col-span-2 md:col-span-1 md:row-span-2 row-span-1'>
-        <p>Localización del inmueble</p>
+        <p className='md:text-base text-xs'>Localización del inmueble</p>
         <MapaLocalization position={position} setPosition={setPosition}/>
       </div> 
     </div>

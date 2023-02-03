@@ -1,11 +1,12 @@
 "use client";
 import { Sidebar, Flowbite, Badge } from 'flowbite-react';
-import { BeakerIcon, ChartBarIcon, AcademicCapIcon, Battery0Icon } from '@heroicons/react/24/solid'
+import { BeakerIcon, ChartBarIcon, AcademicCapIcon, Battery0Icon, ExclamationTriangleIcon } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
+import Link from 'next/link';
 
 type Props = {}
 
@@ -22,87 +23,35 @@ const AdminBarComponent = (props: Props) => {
                         setSidebarChange(!sidebarChange);
                     }} />
                     <h2 className={'inline-block relative left-3 bottom-[12px] text-lg'.concat(sidebarChange ? ' hidden ' : ' ')}>
-                    Waroom Admin</h2>
+                        Waroom Admin</h2>
 
                 </div>
                 <Sidebar.Items>
                     <Sidebar.ItemGroup>
 
-                    <Sidebar.Item
+                        {/* <Sidebar.Item
                             href="#"
                             icon={ChartBarIcon}
                         >
                             Users
-                        </Sidebar.Item>
+                        </Sidebar.Item> */}
 
-                        <Sidebar.Collapse label="E-commerce" icon={BeakerIcon} >
-                            <Sidebar.Item href="#" icon={BeakerIcon} >
-                                Products
-                            </Sidebar.Item>
+                        <Sidebar.Collapse label="DENUNCIAS" icon={ExclamationTriangleIcon} >
+                            <Link href="/admin/denounce/comment">
+                                <Sidebar.Item icon={ExclamationTriangleIcon} >
+                                    COMENTARIOS
+                                </Sidebar.Item>
+                            </Link>
+                            <Link href="/admin/denounce/publication">
+                                <Sidebar.Item icon={ExclamationTriangleIcon} >
+                                    PUBLICACIONES
+                                </Sidebar.Item>
+                            </Link>
                         </Sidebar.Collapse>
-                        <Sidebar.Item
-                            href="#"
-                            icon={Battery0Icon}
-                        >
-                            Inbox
-                        </Sidebar.Item>
-                        <Sidebar.Item
-                            href="#"
-                            icon={BeakerIcon}
-                        >
-                            Users
-                        </Sidebar.Item>
-                        <Sidebar.Item
-                            href="#"
-                            icon={AcademicCapIcon}
-                        >
-                            Products
-                        </Sidebar.Item>
-                        <Sidebar.Item
-                            href="#"
-                            icon={AcademicCapIcon}
-                        >
-                            Products
-                        </Sidebar.Item>
-                       
-                        <Sidebar.Item
-                        onClick={() => router.push('/login')}
-                            icon={AcademicCapIcon}
-                        >
-                            Products
-                        </Sidebar.Item>
-                        <Sidebar.Item
-                        onClick={() => router.push('/login')}
-                            icon={AcademicCapIcon}
-                        >
-                            Products
-                        </Sidebar.Item>
-                        <Sidebar.Item
-                        onClick={() => router.push('/login')}
-                            icon={AcademicCapIcon}
-                        >
-                            Products
-                        </Sidebar.Item>
-                        <Sidebar.Item
-                        onClick={() => router.push('/login')}
-                            icon={AcademicCapIcon}
-                        >
-                            Products
-                        </Sidebar.Item>
-                        <Sidebar.Item
-                        onClick={() => router.push('/login')}
-                            icon={AcademicCapIcon}
-                        >
-                            Products
-                        </Sidebar.Item>
-                        <Sidebar.Item
-                        onClick={() => router.push('/login')}
-                            icon={AcademicCapIcon}
-                        >
-                            Products
-                        </Sidebar.Item>
-                       
-  
+
+
+
+
                     </Sidebar.ItemGroup>
                 </Sidebar.Items>
             </Sidebar>

@@ -4,6 +4,11 @@ import { ErrorNotification } from "../../SweetLibrary/ErrorNotification";
 import { NotificationSuccess } from "../../SweetLibrary/SuccessNotification";
 import { saveToken } from "../../Token/SaveToken";
 import { validationDataEmpty } from "../../Validations/ValidationDataEmpty";
+import { checkRequestFriendly } from "./Gets/checkRequestFriendly";
+import { getCheckStatusFriendly } from "./Gets/checkStatusFriendly";
+import { getfilterUser } from "./Gets/filterUser";
+import { getAllFriends } from "./Gets/getAllFriends";
+import { getDataProfileChatGraphql } from "./Gets/GetDataProfileChat";
 import { getCheckUser } from "./Gets/GetGraphql.CheckUser";
 import { getDataProfileGraphql } from "./Gets/GetGraphql.DataProfile";
 import { getLogin } from "./Gets/GetGraphqlLogin";
@@ -36,51 +41,150 @@ export class QueryLogin {
     ErrorNotification.errorNotificationLogin(mensajeError);
   }
 
-
-
-
-  public static async checkUser(
-    
-) {
+  public static async checkUser() {
     let mensajeError = "";
     try {
-    let response = await getCheckUser();
-    
-    if (response.errors == undefined) {
+      let response = await getCheckUser();
+
+      if (response.errors == undefined) {
         return response;
-    }
-    let errores = response.errors[0].extensions.response;
-    mensajeError =
+      }
+      let errores = response.errors[0].extensions.response;
+      mensajeError =
         typeof errores.message == "object"
-        ? errores.message[0]
-        : errores.message;
+          ? errores.message[0]
+          : errores.message;
     } catch (error: any) {
-    mensajeError = error.message;
+      mensajeError = error.message;
     }
     //ErrorNotification.errorNotificationLogin(mensajeError);
 
     //return mensajeError;
-}
+  }
 
-public static async getDataProfile(profile: string) {
-  let mensajeError = '';
-  try {
-     
+  public static async getDataProfile(profile: string) {
+    let mensajeError = "";
+    try {
       let response = await getDataProfileGraphql(profile);
-      
 
       if (response.errors == undefined) {
-          
-          return response;
+        return response;
       }
       let errores = response.errors[0].extensions.response;
-      mensajeError = (typeof errores.message) == 'object' ? errores.message[0] : errores.message;
-  } catch (error: any) {
+      mensajeError =
+        typeof errores.message == "object"
+          ? errores.message[0]
+          : errores.message;
+    } catch (error: any) {
       mensajeError = error.message;
+    }
+    return;
+    //ErrorNotification.errorNotificationLogin(mensajeError);
   }
-  return;
-  //ErrorNotification.errorNotificationLogin(mensajeError);
-}
 
-  
+
+  public static async getDataProfileChat(addressEmail: string) {
+    let mensajeError = "";
+    try {
+      let response = await getDataProfileChatGraphql(addressEmail);
+
+      if (response.errors == undefined) {
+        return response;
+      }
+      let errores = response.errors[0].extensions.response;
+      mensajeError =
+        typeof errores.message == "object"
+          ? errores.message[0]
+          : errores.message;
+    } catch (error: any) {
+      mensajeError = error.message;
+    }
+    return;
+    //ErrorNotification.errorNotificationLogin(mensajeError);
+  }
+  public static async getStatusFriendly(profile: string) {
+    let mensajeError = "";
+    try {
+      let response = await getCheckStatusFriendly(profile);
+
+      if (response.errors == undefined) {
+        return response;
+      }
+      let errores = response.errors[0].extensions.response;
+      mensajeError =
+        typeof errores.message == "object"
+          ? errores.message[0]
+          : errores.message;
+    } catch (error: any) {
+      mensajeError = error.message;
+    }
+    return;
+    //ErrorNotification.errorNotificationLogin(mensajeError);
+  }
+
+  public static async getCheckRequestFriend(profile: string) {
+    let mensajeError = "";
+    try {
+      let response = await checkRequestFriendly(profile);
+
+      if (response.errors == undefined) {
+        return response;
+      }
+      let errores = response.errors[0].extensions.response;
+      mensajeError =
+        typeof errores.message == "object"
+          ? errores.message[0]
+          : errores.message;
+    } catch (error: any) {
+      mensajeError = error.message;
+    }
+    return;
+    //ErrorNotification.errorNotificationLogin(mensajeError);
+  }
+
+  public static async getCheckAllFriends(profile: string) {
+    let mensajeError = "";
+    try {
+      console.log(".............................................");
+      console.log("............................................");
+      console.log(profile);
+      let response = await getAllFriends(profile);
+
+      if (response.errors == undefined) {
+        return response;
+      }
+      let errores = response.errors[0].extensions.response;
+      mensajeError =
+        typeof errores.message == "object"
+          ? errores.message[0]
+          : errores.message;
+    } catch (error: any) {
+      mensajeError = error.message;
+    }
+
+    //ErrorNotification.errorNotificationLogin(mensajeError);
+  }
+
+  public static async getFiltersPerson(filter?:string) {
+    let mensajeError = "";
+    try {
+      console.log(".............................................");
+      console.log("............................................");
+      console.log(filter);
+      let response = await getfilterUser(filter);
+
+      if (response.errors == undefined) {
+        return response;
+      }
+      let errores = response.errors[0].extensions.response;
+      mensajeError =
+        typeof errores.message == "object"
+          ? errores.message[0]
+          : errores.message;
+    } catch (error: any) {
+      mensajeError = error.message;
+    }
+
+    //ErrorNotification.errorNotificationLogin(mensajeError);
+  }
 }

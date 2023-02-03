@@ -12,18 +12,20 @@ export default function SocialLayout({ children }: {
   children: React.ReactNode
 }) {
   const [render, setRender] = useState(false);
-  
+
   useEffect(() => {
     setRender(true);
- }, []);
- if (!render) {
-  return null;
-}
+  }, []);
+  if (!render) {
+    return null;
+  }
   return (
- <div className="bg-stone-100">
-    <NavBar/>
-    {children}
-    
+    <div className="m-0 w-full">
+      <div className='relative max-w-full'>
+      <NavBar />
       </div>
+      {children}
+
+    </div>
   );
 }

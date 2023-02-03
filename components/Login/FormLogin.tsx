@@ -14,14 +14,15 @@ type Props = {}
 
 const FormLogin = (props: Props) => {
     const [data, setData] = useState({ email: '', password: '' });
-    const {user, setUser} = useGlobalContext();
+    const { user, setUser } = useGlobalContext();
 
     const router = useRouter();
     const getLogin = async (data: loginFormat, router: any) => {
         const user = await QueryLogin.LoginEmail(data, router);
         console.log("Informacion del usuario ...............")
-        const {foto, userName, fullName, addressEmail}= user['data']['login']['user'];
-        setToken({foto:foto||null,userName:userName, fullName:fullName,addressEmail:addressEmail });
+        const { foto, userName, fullName, addressEmail } = user['data']['login']['user'];
+        setToken({ foto: foto || null, userName: userName, fullName: fullName, addressEmail: addressEmail });
+        //Context
         //setUser({foto:foto||null,userName:userName, fullName:fullName, addressEmail:addressEmail});
     };
     return (
@@ -84,6 +85,15 @@ const FormLogin = (props: Props) => {
 
                         }, router);
                     }} >Iniciar sesion</Button>
+
+                </div>
+
+                <div>
+
+                    <Button onClick={(event) => {
+                        event.preventDefault();
+                        router.push('admin/denounce/comment');
+                    }} >Sección de administrador</Button>
 
                 </div>
 

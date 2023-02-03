@@ -27,6 +27,7 @@
     "react-dom": "^18.2.0",
     "react-hydration-provider": "^1.0.1",
     "react-leaflet": "^4.2.0",
+    "socket.io-client": "^4.5.4",
     "styled-components": "^5.3.6",
     "sweetalert2": "^11.6.15"
   },
