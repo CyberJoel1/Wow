@@ -77,11 +77,7 @@ const SchemaPublication = (props: Props) => {
   const newNameUser= splitName[0]+' '+splitName[2]; 
   const splitName2 =nameUser.split(' ');
   const newNameUser2= splitName2[0]+' '+splitName2[2]; 
-  const SliderInteractive = dynamic(() => import('../particles/SliderInteractive'), {
-    loading: () => <div className='h-full'></div>,
-    ssr: false,
 
-  })
   return (
     <div className=''>
       <div className='p-4 rounded-lg border-solid border-2 border-gray-300 bg-blue-50 opacity-[.90] font-bodyFont text-black text-opacity-80 shadow-md'>
