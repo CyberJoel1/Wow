@@ -18,6 +18,7 @@ import { GetLikePublication } from "./Gets/GetLikePublication";
 import { GetRecomendationPublication } from "./Gets/GetRecomendationPublication";
 import { CreateLike } from "./Posts/CreateLike";
 import { DeleteLike } from "./Posts/DeleteLike";
+import { deletePublicationDenounce } from "./Posts/DeletePublicationDenounce";
 import { denouncePublicationGraphql } from "./Posts/DenouncePublication";
 import { postFile } from "./Posts/PostFile";
 import { PostDeletePublication } from "./Posts/PostGraphqlDeletePublication";
@@ -364,6 +365,27 @@ export class QueryPublication {
     let mensajeError = "";
     try {
       let response = await GetDenouncePublications(pag);
+      console.log(response);
+      if (response.errors == undefined) {
+        return response;
+      }
+      let errores = response.errors[0].extensions.response;
+      mensajeError =
+        typeof errores.message == "object"
+          ? errores.message[0]
+          : errores.message;
+    } catch (error: any) {
+      mensajeError = error.message;
+    }
+    // ErrorNotification.errorNotificationLogin(mensajeError);
+
+    //return mensajeError;
+  }
+
+  public static async deletePublicationDenounceOne(id: number) {
+    let mensajeError = "";
+    try {
+      let response = await deletePublicationDenounce(id);
       console.log(response);
       if (response.errors == undefined) {
         return response;

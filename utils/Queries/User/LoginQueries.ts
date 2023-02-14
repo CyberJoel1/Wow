@@ -2,7 +2,7 @@ import { faTruckPlane } from "@fortawesome/free-solid-svg-icons";
 import { loginFormat } from "../../interfaces/loginFormat";
 import { ErrorNotification } from "../../SweetLibrary/ErrorNotification";
 import { NotificationSuccess } from "../../SweetLibrary/SuccessNotification";
-import { saveToken } from "../../Token/SaveToken";
+import { saveToken, saveTokenAdmin } from "../../Token/SaveToken";
 import { validationDataEmpty } from "../../Validations/ValidationDataEmpty";
 import { checkRequestFriendly } from "./Gets/checkRequestFriendly";
 import { getCheckStatusFriendly } from "./Gets/checkStatusFriendly";
@@ -12,6 +12,7 @@ import { getDataProfileChatGraphql } from "./Gets/GetDataProfileChat";
 import { getCheckUser } from "./Gets/GetGraphql.CheckUser";
 import { getDataProfileGraphql } from "./Gets/GetGraphql.DataProfile";
 import { getLogin } from "./Gets/GetGraphqlLogin";
+import { getLoginAdmin } from "./Gets/GetGraphqlLoginAdmin";
 
 export class QueryLogin {
   public static async LoginEmail(data: loginFormat, router: any) {
@@ -27,6 +28,34 @@ export class QueryLogin {
             "Usuario logueado correctamente"
           );
           router.push("/social");
+          return response;
+        }
+      }
+      let errores = response.errors[0].extensions.response;
+      mensajeError =
+        typeof errores.message == "object"
+          ? errores.message[0]
+          : errores.message;
+    } catch (error: any) {
+      mensajeError = error.message;
+    }
+    ErrorNotification.errorNotificationLogin(mensajeError);
+  }
+
+  public static async LoginEmailAdmin(data: loginFormat, router: any) {
+    let mensajeError = "";
+    try {
+      validationDataEmpty(data);
+      const response = await getLoginAdmin(data);
+      console.log(response);
+      if (response.errors == undefined) {
+        let login = await saveTokenAdmin(response);
+
+        if (login.success != undefined) {
+          NotificationSuccess.successNotificationLogin(
+            "Usuario logueado correctamente"
+          );
+          router.push("/admin");
           return response;
         }
       }

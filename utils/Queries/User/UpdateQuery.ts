@@ -8,6 +8,8 @@ import { checkRequestFriendly } from "./Gets/checkRequestFriendly";
 import { confirmRequestFriendly } from "./Gets/confirmRequestFriendly";
 import { deleteFriendly } from "./Posts/DeleteFriendly";
 import { postGraphqlUpdater } from "./Posts/PostGraphqlUpdate";
+import { treatedDenounceFormat } from '../../interfaces/treatedDenounceFormat';
+import { treatedDenouncePost } from "./Posts/TreatedDenounce";
 
 export class QueryUpdater {
 
@@ -69,6 +71,25 @@ export class QueryUpdater {
             let response = await confirmRequestFriendly(idRelation);
     
 
+            if (response.errors == undefined) {
+                return true;
+            }
+            let errores = response.errors[0].extensions.response;
+            mensajeError = (typeof errores.message) == 'object' ? errores.message[0] : errores.message;
+        } catch (error: any) {
+            mensajeError = error.message;
+        }
+    
+        ErrorNotification.errorNotificationLogin(mensajeError);
+    }
+
+    public static async treatedDenounceUpdate(treated:treatedDenounceFormat) {
+        let mensajeError = '';
+        try {
+           
+            let response = await treatedDenouncePost(treated);
+    
+            console.log(response);
             if (response.errors == undefined) {
                 return true;
             }

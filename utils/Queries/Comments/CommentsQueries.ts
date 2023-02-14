@@ -7,6 +7,7 @@ import { GetCommentsDenounce } from "./Gets/GetDenounceComments";
 import { GetComments } from "./Gets/GetsGraphql.Comments";
 import { countDenounceCommentGraphql } from "./Posts/CountComment";
 import { DeletePostComment } from "./Posts/DeleteComment";
+import { deleteCommentDenounce } from "./Posts/DeleteCommentDenounce";
 import { denounceCommentGraphql } from "./Posts/DenounceComments";
 import { PostComment } from "./Posts/PostGraphql.Comments";
 import { UpdateComent } from "./Posts/PostGraphql.UpComment";
@@ -197,6 +198,26 @@ export class CommentsQueries{
         //return mensajeError;
     }
 
+    public static async deleteDenounceCommentOne( id:number) {
+        let mensajeError = "";
+        try {
+        let response = await deleteCommentDenounce(id);
+        console.log(response)
+        if (response.errors == undefined) {
+            return response;
+        }
+        let errores = response.errors[0].extensions.response;
+        mensajeError =
+            typeof errores.message == "object"
+            ? errores.message[0]
+            : errores.message;
+        } catch (error: any) {
+        mensajeError = error.message;
+        }
+        //ErrorNotification.errorNotificationLogin(mensajeError);
+
+        //return mensajeError;
+    }
 
     
 }
