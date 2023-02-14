@@ -18,7 +18,7 @@ const MapFilterIntegrate = (props: Props) => {
     return (
        
             <div className='w-full md:col-span-1 col-span-2'>
-                <div className='p-3 md:p-1 col-span-1'>
+                <div className='p-3 md:p-1 col-span-1 hidden'>
                     <div className="mb-2 block">
                         <Label
                             htmlFor="email4"

@@ -1,12 +1,13 @@
 "use client";
 import { Sidebar, Flowbite, Badge } from 'flowbite-react';
-import { BeakerIcon, ChartBarIcon, AcademicCapIcon, Battery0Icon, ExclamationTriangleIcon } from '@heroicons/react/24/solid'
+import { BeakerIcon, ChartBarIcon, AcademicCapIcon, Battery0Icon, ExclamationTriangleIcon, ExclamationCircleIcon } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
 import Link from 'next/link';
+import { clearToken } from '../../utils/Token/ClearToken';
 
 type Props = {}
 
@@ -49,10 +50,19 @@ const AdminBarComponent = (props: Props) => {
                             </Link>
                         </Sidebar.Collapse>
 
-
+                        <Sidebar.Item
+                         onClick={async () => {
+                            await clearToken();
+                            router.replace('/login')
+                        }}
+                        icon={ExclamationCircleIcon}
+                    >
+                        Desconectar
+                    </Sidebar.Item>
 
 
                     </Sidebar.ItemGroup>
+
                 </Sidebar.Items>
             </Sidebar>
         </>

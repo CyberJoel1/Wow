@@ -31,6 +31,7 @@ const Chat = (props: Props) => {
   const [idReceivedOrder, setIdReceivedOrder] = useState<number>(idReceived);
   const { addressEmail, fullName, userName, foto } = user;
   const section1 = useRef(null);
+  const section2 = useRef(null);
   const socket = io(CONFIG.host);
 
 
@@ -58,7 +59,9 @@ const Chat = (props: Props) => {
   const loadData = async (idSend: number, idReceived: number) => {
     console.log(idReceived + " " + idSend);
     const response = await GetComments(
-      [idSend, idReceived].sort((a, b) => a - b)
+      [idSend, idReceived].sort((a, b) => a - b),
+      userName,
+      chatDefault.addressEmail || userName
     );
     console.log(response);
     setMessages([...response]);
@@ -151,9 +154,9 @@ const Chat = (props: Props) => {
         
      
       
-      <div className="p-8 flex items-center">
-        <textarea className="flex-auto overflow-y-auto p-4 h-16 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
-
+      <div className="p-0 md:p-8 flex items-center">
+        <textarea className="w-full flex-auto overflow-y-auto p-4 h-16 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
+          value={message}
           onChange={(e: any) => {
             setMessage(e.target.value);
           }}
@@ -171,6 +174,7 @@ const Chat = (props: Props) => {
               idSend: idReceivedOrder.toString(),
             });
             //setMessages([...messages, { data: { idUsers: [idSend, idReceived].sort((a, b) => a - b), email: '', text: message }, idSend: idSend.toString() }])
+            setMessage('');
           }}
         >
           Enviar

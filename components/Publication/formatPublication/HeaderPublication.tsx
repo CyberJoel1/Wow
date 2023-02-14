@@ -144,31 +144,31 @@ const HeaderPublication = (props: Props) => {
                             </Dropdown>
                         </div>
                     </div>}
-                    {(equalUser && !hiddenDenounce) &&
-                                            <div className='flex-auto flex justify-end'>
-                                            <div className='p-5'>
-                                                <Dropdown
-                                                    label={<PencilSquareIcon className='w-[20px]' />}
-                                                    inline={true}
-                                                    arrowIcon={false}
-                                                >
-                                                    <Dropdown.Item onClick={async () => {
-                                                        const response =await DenouncePublications.denounceComment(identity, userName);
-                                                        if(response){
-                                                            DenouncePublications.createDenouncePublication();
-                                                            setHiddenDenounce(!hiddenDenounce);
-                                                        }else{
-                                                            ErrorNotification.errorNotificationLogin("No se pudo procesar");
-                                                        }
-                                                        
-                                                    }}>
-                                                        Denunciar
-                                                    </Dropdown.Item>
-                    
-                                                </Dropdown>
-                                            </div>
-                                        </div>
-                    }
+                {(equalUser && !hiddenDenounce) &&
+                    <div className='flex-auto flex justify-end'>
+                        <div className='p-5'>
+                            <Dropdown
+                                label={<PencilSquareIcon className='w-[20px]' />}
+                                inline={true}
+                                arrowIcon={false}
+                            >
+                                <Dropdown.Item onClick={async () => {
+                                    const response = await DenouncePublications.denounceComment(identity, userName);
+                                    if (response) {
+                                        DenouncePublications.createDenouncePublication();
+                                        setHiddenDenounce(!hiddenDenounce);
+                                    } else {
+                                        ErrorNotification.errorNotificationLogin("No se pudo procesar");
+                                    }
+
+                                }}>
+                                    Denunciar
+                                </Dropdown.Item>
+
+                            </Dropdown>
+                        </div>
+                    </div>
+                }
             </div>
 
             <div className='my-1 font-bodyFont text-black text-lg leading-[-12px] px-2'>

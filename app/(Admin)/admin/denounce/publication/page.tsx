@@ -13,14 +13,16 @@ type Props = {};
 const page = (props: Props) => {
   const [pag, setPage] = useState<number>(0);
   const [numPage, setNumPage] = useState<number>(0);
+  const [render, setRender] = useState<boolean>(false);
   const [listDenounce, setListDenounce] = useState<any>();
   const countDenounce = async (): Promise<number> => {
     const response = await QueryPublication.publicationCountDenounce();
     if (!response) {
-
-      return (response['data']['CountDenounces']);
-    } else {
       return 0;
+      
+    } else {
+      
+      return (response['data']['CountDenounces']);
     }
   }
   const transformPageAvailable = (numero: number) => {
@@ -43,12 +45,15 @@ const page = (props: Props) => {
 
   const publicationsDenounce = async (pag: number) => {
     let response;
+
     if (pag <= 0) {
       response = await QueryPublication.publicationGetDenounce(0);
     } else {
       response = await QueryPublication.publicationGetDenounce(((pag) * 10) - 1);
     }
-    
+    if(!response){
+      return;
+    }
     setListDenounce(response['data']['findAllPublicationDenounce']);
     const responseNumPage = await QueryPublication.publicationCountDenounce();
 
@@ -63,7 +68,7 @@ const page = (props: Props) => {
     return () => {
 
     }
-  }, [pag])
+  }, [pag,render])
   const listItems = listDenounce?.map((element: any) =>{
   // Correct! Key should be specified inside the array.
   
@@ -153,29 +158,32 @@ const page = (props: Props) => {
                     <select
                       name="lang"
                       id="lang"
-                      onChange={(e: any) => {
+                      onChange={async (e: any) => {
                         console.log(e.target.value);
                         var valor = e.target.value;
                         let resultado = "";
                         let fechaActual = moment(new Date());
-                        if ((valor = 1)) {
+                        if ((valor == 1)) {
                           resultado = fechaActual
-                            .add(2, "weeks")
+                            .add(1, "weeks")
                             .format("YYYY-MM-DD");
                         }
-                        if ((valor = 2)) {
+                        if ((valor == 2)) {
                           resultado = fechaActual
                             .add(1, "months")
                             .format("YYYY-MM-DD");
                         }
-                        if ((valor = 3)) {
+                        if ((valor == 3)) {
                           resultado = fechaActual
-                            .add(3, "months")
+                            .add(2, "months")
                             .format("YYYY-MM-DD");
                         } else {
                           ("escoja un valor válido");
                         }
-                        EvidencePublication.confirm(resultado);
+                        const response = await EvidencePublication.confirm(resultado, element['user2']['fullName'],element['user2']['userName']);
+                        if(response!=null){
+                          setRender(!render);
+                        }
                       }}
                     >
                       <option value={0}>elige el castigo</option>
@@ -208,8 +216,10 @@ const page = (props: Props) => {
                       data-bs-target="#exampleModal"
                       onClick={(e: any) => {
                         e.preventDefault();
-                        EvidencePublication.cancelRequest();
-
+                        const response = EvidencePublication.cancelRequest(parseInt(element['idPublication']));
+                        if(response!=null){
+                          setRender(!render);
+                        }
                       }}
                     >
                       Cancelar Solicitud

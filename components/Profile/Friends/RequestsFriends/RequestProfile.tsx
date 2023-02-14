@@ -43,7 +43,7 @@ const RequestProfile = (props: Props) => {
 
   const listPublications = requestList?.map((element: any) => {
     const { fullName, addressEmail, id, userName } = element['user'];
-    const elementFoto = element['user']['foto'] == null ? '/perfil.jpg' : element['user']['foto'];
+    const elementFoto = element['user']['foto'] == null ? '/foto1.jpg' : element['user']['foto'];
     let splitFullName = fullName.split(' ');
     let fullNameRes = splitFullName[0] + ' ' + splitFullName[2];
     const idRelation = element['idRelation'];

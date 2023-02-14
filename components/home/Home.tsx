@@ -299,7 +299,7 @@ const Home = (props: Props) => {
                       <img
                         alt="..."
                         className="shadow-lg rounded-full max-w-full mx-auto"
-                        src='/perfil.jpg'
+                        src='/foto1.jpg'
                         style={{ maxWidth: "120px" }}
                       />
                       <div className="pt-6 text-center">

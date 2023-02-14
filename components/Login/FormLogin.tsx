@@ -25,6 +25,17 @@ const FormLogin = (props: Props) => {
         //Context
         //setUser({foto:foto||null,userName:userName, fullName:fullName, addressEmail:addressEmail});
     };
+
+    const getLoginAdmin = async (data: loginFormat, router: any) => {
+        const user = await QueryLogin.LoginEmailAdmin(data, router);
+
+        console.log("Informacion del usuario ...............")
+        console.log(user);
+        const { foto, userName, fullName, addressEmail } = user['data']['loginAdmin']['user'];
+        setToken({ foto: foto || null, userName: userName, fullName: fullName, addressEmail: addressEmail });
+        //Context
+        //setUser({foto:foto||null,userName:userName, fullName:fullName, addressEmail:addressEmail});
+    };
     return (
 
         <>
@@ -92,7 +103,11 @@ const FormLogin = (props: Props) => {
 
                     <Button onClick={(event) => {
                         event.preventDefault();
-                        router.push('admin/denounce/comment');
+                        getLoginAdmin({
+                            email: data?.email
+                            , password: data?.password,
+
+                        }, router);
                     }} >Sección de administrador</Button>
 
                 </div>

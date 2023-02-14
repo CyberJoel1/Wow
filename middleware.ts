@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { QueryLogin } from "./utils/Queries/User/LoginQueries";
 import { ErrorNotification } from "./utils/SweetLibrary/ErrorNotification";
-import use from 'react';
+import use from "react";
 import { getDataProfileGraphql } from "./utils/Queries/User/Gets/GetGraphql.DataProfile";
 import { CONFIG } from "./utils/Config/host";
 import { returnToken } from "./utils/Token/ReturnToken";
@@ -17,20 +17,16 @@ export async function middleware(request: NextRequest) {
   const jwt = request.cookies.get("token");
 
   if (!jwt) {
-
     if (request.nextUrl.pathname.startsWith("/login")) {
       return;
     } else if (request.nextUrl.pathname.startsWith("/register")) {
       return;
-    } 
-    else if (request.nextUrl.pathname.startsWith("/home")) {
+    } else if (request.nextUrl.pathname.startsWith("/home")) {
       return;
-    }else if (request.nextUrl.pathname.startsWith("/")) {
-      return NextResponse.redirect(new URL("/login", request.url));
+    } else if (request.nextUrl.pathname.startsWith("/")) {
+      return NextResponse.redirect(new URL("/home", request.url));
     }
-  }
-  
-  else {
+  } else {
     if (request.nextUrl.pathname.startsWith("/login")) {
       return NextResponse.redirect(new URL("/social", request.url));
     } else if (request.nextUrl.pathname.startsWith("/register")) {
@@ -39,10 +35,12 @@ export async function middleware(request: NextRequest) {
       if (request.nextUrl.pathname.startsWith("/social/profile")) {
         //Validación de usuario valido
         const partsUrl = request.nextUrl.pathname.split("/");
-        console.log(partsUrl[partsUrl.length-1])
-        const response = await getDataProfileGraphql(partsUrl[partsUrl.length-1]);
+        console.log(partsUrl[partsUrl.length - 1]);
+        const response = await getDataProfileGraphql(
+          partsUrl[partsUrl.length - 1]
+        );
 
-        if (response['data'] == null) {
+        if (response["data"] == null) {
           //ErrorNotification.errorNotificationLogin("lo lamentamos no hay un usuario con esas credenciales");
           return NextResponse.redirect(new URL("/social", request.url));
         }

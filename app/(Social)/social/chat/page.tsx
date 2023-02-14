@@ -27,7 +27,9 @@ const page = () => {
     setChats([...response]);
   };
   const contextDefault=()=>{
-    const data:storageDefaultChat | null=getDefafultChatStorage();
+    const data:storageDefaultChat | null =getDefafultChatStorage();
+    console.log("data .................."+JSON.stringify(data));
+    console.log(data);
     if(!data){
       return;
     }
@@ -59,13 +61,13 @@ const page = () => {
   });
   return (
     <div className="flex flex-row text-sm md:text-lg">
-      <div className=" bg-blue-50 m-2 overflow-auto max-h-screen min-w-[150px] w-[45%] md:w-[30%]">
+      <div className=" bg-blue-50 m-2 overflow-auto max-h-screen min-w-[150px] w-[40%] md:w-[30%]">
         
         {listPersons}
        
       </div>
-      <div className=" flex-auto overflow-auto bg-blue-50 md:w-[70%] w-[55%] max-h-[100vh] min-h-[calc(100vh-0.7rem)]">
-        {idUsers && <Chat idSend={idUsers[0]} idReceived={idUsers[1]} />}
+      <div className=" flex-auto overflow-auto bg-blue-50 md:w-[70%] w-[60%] max-h-[100vh] min-h-[calc(100vh-0.7rem)]">
+        {idUsers && <Chat idSend={idUsers[0]} idReceived={idUsers[1]}/>}
       </div>
     </div>
   );

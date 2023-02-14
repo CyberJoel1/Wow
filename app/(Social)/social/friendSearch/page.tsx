@@ -32,7 +32,7 @@ const page = (props: Props) => {
 
     const listUsers = users?.map((element:any) => {
         const {fullName,addressEmail,id, userName} = element;
-        const elementFoto = element['foto'] == null?'/perfil.jpg':element['foto'];
+        const elementFoto = element['foto'] == null?'/foto1.jpg':element['foto'];
         let splitFullName = fullName.split(' ');
         let fullNameRes= splitFullName[0]+' '+splitFullName[2];
         return (

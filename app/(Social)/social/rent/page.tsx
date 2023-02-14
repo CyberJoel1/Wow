@@ -53,7 +53,7 @@ const page = (props: Props) => {
             </div>)
     });
     return (
-        <div className='w-[70%] m-auto'>
+        <div className='w-full md:w-[70%] m-auto'>
             <SchemaFilter setRenderData={setRenderData} renderData={renderData} setFilterData={setFilterData} filterData={filterData}/>
             <div className='mx-[7%] border border-indigo-200 rounded-lg mt-6 mb-3 drop-shadow-lg'>
 
