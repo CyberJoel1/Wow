@@ -54,7 +54,7 @@ const ShowPublicationRecomendation = (props: Props) => {
             </div>)
     });
     return (
-        <div className='w-[70%] m-auto'>
+        <div className='w-[90%] md:w-[70%] m-auto'>
             
             <div className='mx-[7%] border border-indigo-200 rounded-lg mt-6 mb-3 drop-shadow-lg'>
 
