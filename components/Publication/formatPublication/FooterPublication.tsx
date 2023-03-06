@@ -18,7 +18,7 @@ const FooterPublication = (props: Props) => {
       <SeparatorComponent />
         <ButtonsInteractive abrirComentario={abrirComentario} setAbrirComentario={setAbrirComentario} idPublication={idPublication}/>
       <SeparatorComponent/>
-      <CommentPublication userNameTo={userName} idPublication={idPublication} foto={foto} abrirComentario={abrirComentario}/>
+      <CommentPublication userNameTo={userName} idPublication={idPublication} foto={foto || '/foto1.jpg'} abrirComentario={abrirComentario}/>
 
     </div>
   )

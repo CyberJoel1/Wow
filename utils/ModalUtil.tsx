@@ -260,12 +260,12 @@ const ModalUtil = (props: Props) => {
               <div className="mb-2 block">
                 <Label
                   htmlFor="comment"
-                  value="Your message"
+                  value="Mensaje publicación"
                 />
               </div>
               <Textarea
                 id="comment"
-                placeholder="Leave a comment..."
+                placeholder="Deja un comentario..."
                 required={true}
                 rows={4}
                 onChange={(e) => {

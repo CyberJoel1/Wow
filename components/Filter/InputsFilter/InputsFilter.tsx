@@ -245,7 +245,7 @@ const InputsFilter = (props: Props) => {
 
             <div className='col-span-1'>
                 <fieldset name='group3'>
-                    <label htmlFor="small-range" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">RANGO DE BUSQUEDA</label>
+                    <label htmlFor="small-range" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">RANGO DE BUSQUEDA (Actual: Km {((filterData.rango || 0)/11)} )</label>
                     <input id="small-range" type="range" min={0} max={1000} className="w-full h-1 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
                         value={filterData.rango || 0}
                         onChange={(e: any) => {

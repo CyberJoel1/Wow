@@ -7,6 +7,7 @@ import { validationDataEmpty } from "../../Validations/ValidationDataEmpty";
 import { checkRequestFriendly } from "./Gets/checkRequestFriendly";
 import { getCheckStatusFriendly } from "./Gets/checkStatusFriendly";
 import { getfilterUser } from "./Gets/filterUser";
+import { getAllDataProfileGraphql } from "./Gets/GetAllDataUser";
 import { getAllFriends } from "./Gets/getAllFriends";
 import { getDataProfileChatGraphql } from "./Gets/GetDataProfileChat";
 import { getCheckUser } from "./Gets/GetGraphql.CheckUser";
@@ -216,4 +217,30 @@ export class QueryLogin {
 
     //ErrorNotification.errorNotificationLogin(mensajeError);
   }
+
+  
+  public static async getAllDataProfile(profile: string) {
+    let mensajeError = "";
+    try {
+      console.log(".............................................");
+      console.log("............................................");
+      console.log("data profile .............................");
+      let response = await getAllDataProfileGraphql(profile);
+
+      if (response.errors == undefined) {
+        return response;
+      }
+      let errores = response.errors[0].extensions.response;
+      mensajeError =
+        typeof errores.message == "object"
+          ? errores.message[0]
+          : errores.message;
+    } catch (error: any) {
+      mensajeError = error.message;
+    }
+
+    //ErrorNotification.errorNotificationLogin(mensajeError);
+  }
+
+  
 }

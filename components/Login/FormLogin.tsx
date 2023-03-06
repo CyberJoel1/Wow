@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { QueryLogin } from "../../utils/Queries/User/LoginQueries";
 import { useGlobalContext } from '../../app/Context/store';
 import { setToken } from "../../utils/Localstorage/ManageLocalStorage.User";
+import React from "react";
 
 
 type Props = {}
@@ -15,6 +16,9 @@ type Props = {}
 const FormLogin = (props: Props) => {
     const [data, setData] = useState({ email: '', password: '' });
     const { user, setUser } = useGlobalContext();
+    const [activateValidate, setActivateValidate] = useState<any>({
+        validate1: false, validate2: false
+    });
 
     const router = useRouter();
     const getLogin = async (data: loginFormat, router: any) => {
@@ -59,6 +63,15 @@ const FormLogin = (props: Props) => {
                         onChange={(e) => {
                             setData({ ...data, email: e.target.value })
                         }}
+                        color={activateValidate.validate1?"failure":undefined}
+                        helperText={activateValidate.validate1?<React.Fragment><span className="font-medium">Oops!</span>{' '}Este campo es obligatorio!</React.Fragment>:undefined}
+                        onBlur={(e:any) => { 
+                            if(e.target.value === '' || e.target.value === null){
+                                setActivateValidate({...activateValidate,validate1:true});
+                            }else{
+                                setActivateValidate({...activateValidate,validate1:false});
+                            }
+                        }}
                     />
                 </div>
                 <div>
@@ -76,6 +89,15 @@ const FormLogin = (props: Props) => {
                         value={data?.password}
                         onChange={(e) => {
                             setData({ ...data, password: e.target.value })
+                        }}
+                        color={activateValidate.validate2?"failure":undefined}
+                        helperText={activateValidate.validate2?<React.Fragment><span className="font-medium">Oops!</span>{' '}Este campo es obligatorio!</React.Fragment>:undefined}
+                        onBlur={(e:any) => { 
+                            if(e.target.value === '' || e.target.value === null){
+                                setActivateValidate({...activateValidate,validate2:true});
+                            }else{
+                                setActivateValidate({...activateValidate,validate2:false});
+                            }
                         }}
                     />
                 </div>

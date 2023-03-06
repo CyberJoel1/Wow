@@ -12,41 +12,47 @@ import { QueryRegister } from '../../utils/Queries/User/RegisterQuery';
 type Props = {}
 
 const FormRegister = (props: Props) => {
-    let initialValue = { userName: '', addressEmail: '', identification: '', fullName: '', password: '' , typeUser:'Masculino'};
+    let initialValue = { userName: '', addressEmail: '', identification: '', fullName: '', password: '', typeUser: 'Masculino' };
     const [dataRegister, setData] = useState<registerFormat>(initialValue);
     const [nombreCompleto, setNombreCompleto] = useState<any>({ firstName: '', twoName: '', firstSurName: '', lastSurName: '' });
     const [repeatPassword, setRepeatPasswor] = useState("");
+    const [activateValidate, setActivateValidate] = useState<any>({
+        validate1: false, validate2: false, validate3: false
+        , validate4: false, validate5: false, validate6: false, validate7: false, validate8: false, validate9: false, validate10: false, validate11: false
+    });
     const [accion, setAccion] = useState(false);
     const router = useRouter();
 
     async function nameComplete(nombres: any): Promise<string> {
         const { firstName, twoName, firstSurName, lastSurName } = nombres;
-    
+
         let returnName = firstName + " " + twoName + " " + firstSurName + " " + lastSurName;
-        return  returnName;
+        return returnName;
     }
     const getRegister = async (data: registerFormat, router: any, repeatPassword: string) => {
         await QueryRegister.registerUser(data, router, repeatPassword);
 
+
     };
 
     useEffect(() => {
-        
-        }, [])
+
+    }, [])
 
 
     useEffect(() => {
-        if(dataRegister!==initialValue){
-        getRegister(dataRegister, router, repeatPassword);
-        setData(initialValue);
-    }   
-        }, [accion])
-    
-    
+        if (dataRegister !== initialValue) {
+            getRegister(dataRegister, router, repeatPassword);
+            setData(initialValue);
+        }
+    }, [accion])
+
+
     return (
         <div>
             <h2 className='text-xl text-center pb-5 pt-7 '>Formulario de registro</h2>
-            <form className="grid grid-flow-col-2 gap-4">
+
+            {activateValidate && <form className="grid grid-flow-col-2 gap-4">
                 <div className='col-span-2 md:col-span-1'>
                     <div className="mb-2 block">
                         <Label
@@ -63,8 +69,17 @@ const FormRegister = (props: Props) => {
                         onChange={(e) => {
                             setNombreCompleto({ ...nombreCompleto, firstName: e.target.value });
                         }}
+ 
                         value={nombreCompleto?.firstName}
-
+                        color={activateValidate.validate1?"failure":undefined}
+                        helperText={activateValidate.validate1?<React.Fragment><span className="font-medium">Oops!</span>{' '}Este campo es obligatorio!</React.Fragment>:<React.Fragment>Este campo es obligatorio!</React.Fragment>}
+                        onBlur={(e:any) => { 
+                            if(e.target.value === '' || e.target.value === null){
+                                setActivateValidate({...activateValidate,validate1:true});
+                            }else{
+                                setActivateValidate({...activateValidate,validate1:false});
+                            }
+                        }}
                     />
                 </div>
                 <div className='col-span-2 md:col-span-1'>
@@ -83,6 +98,15 @@ const FormRegister = (props: Props) => {
                         value={nombreCompleto?.twoName}
                         onChange={(e) => {
                             setNombreCompleto({ ...nombreCompleto, twoName: e.target.value });
+                        }}
+                        color={activateValidate.validate2?"failure":undefined}
+                        helperText={activateValidate.validate2?<React.Fragment><span className="font-medium">Oops!</span>{' '}Este campo es obligatorio!</React.Fragment>:<React.Fragment>Este campo es obligatorio!</React.Fragment>}
+                        onBlur={(e:any) => { 
+                            if(e.target.value === '' || e.target.value === null){
+                                setActivateValidate({...activateValidate,validate2:true});
+                            }else{
+                                setActivateValidate({...activateValidate,validate2:false});
+                            }
                         }}
                     />
                 </div>
@@ -103,6 +127,15 @@ const FormRegister = (props: Props) => {
                         onChange={(e) => {
                             setNombreCompleto({ ...nombreCompleto, firstSurName: e.target.value });
                         }}
+                        color={activateValidate.validate3?"failure":undefined}
+                        helperText={activateValidate.validate3?<React.Fragment><span className="font-medium">Oops!</span>{' '}Este campo es obligatorio!</React.Fragment>:<React.Fragment>Este campo es obligatorio!</React.Fragment>}
+                        onBlur={(e:any) => { 
+                            if(e.target.value === '' || e.target.value === null){
+                                setActivateValidate({...activateValidate,validate3:true});
+                            }else{
+                                setActivateValidate({...activateValidate,validate3:false});
+                            }
+                        }}
                     />
                 </div>
                 <div className='col-span-2 md:col-span-1'>
@@ -122,6 +155,15 @@ const FormRegister = (props: Props) => {
                         onChange={(e) => {
                             setNombreCompleto({ ...nombreCompleto, lastSurName: e.target.value });
                         }}
+                        color={activateValidate.validate4?"failure":undefined}
+                        helperText={activateValidate.validate4?<React.Fragment><span className="font-medium">Oops!</span>{' '}Este campo es obligatorio!</React.Fragment>:<React.Fragment>Este campo es obligatorio!</React.Fragment>}
+                        onBlur={(e:any) => { 
+                            if(e.target.value === '' || e.target.value === null){
+                                setActivateValidate({...activateValidate,validate4:true});
+                            }else{
+                                setActivateValidate({...activateValidate,validate4:false});
+                            }
+                        }}
                     />
                 </div>
                 <div className='col-span-2 md:col-span-1'>
@@ -132,17 +174,25 @@ const FormRegister = (props: Props) => {
                         />
                     </div>
                     <TextInput
-                        
+
                         id="email1"
                         type="date"
-                        
-                        
+
+
                         required={true}
                         shadow={true}
                         onChange={(e) => {
                             setData({ ...dataRegister, dateBirth: new Date(e.target.value) })
                         }}
-
+                        color={activateValidate.validate5?"failure":undefined}
+                        helperText={activateValidate.validate5?<React.Fragment><span className="font-medium">Oops!</span>{' '}Este campo es obligatorio!</React.Fragment>:<React.Fragment>Este campo es obligatorio!</React.Fragment>}
+                        onBlur={(e:any) => { 
+                            if(e.target.value === '' || e.target.value === null){
+                                setActivateValidate({...activateValidate,validate5:true});
+                            }else{
+                                setActivateValidate({...activateValidate,validate5:false});
+                            }
+                        }}
                     />
                 </div>
                 <div className='col-span-2 md:col-span-1'>
@@ -161,7 +211,15 @@ const FormRegister = (props: Props) => {
                         onChange={(e) => {
                             setData({ ...dataRegister, password: e.target.value });
                         }}
-
+                        color={activateValidate.validate6?"failure":undefined}
+                        helperText={activateValidate.validate6?<React.Fragment><span className="font-medium">Oops!</span>{' '}Este campo es obligatorio!</React.Fragment>:<React.Fragment>Este campo es obligatorio!</React.Fragment>}
+                        onBlur={(e:any) => { 
+                            if(e.target.value === '' || e.target.value === null){
+                                setActivateValidate({...activateValidate,validate6:true});
+                            }else{
+                                setActivateValidate({...activateValidate,validate6:false});
+                            }
+                        }}
                     />
                 </div>
                 <div className='col-span-2 md:col-span-1'>
@@ -179,6 +237,15 @@ const FormRegister = (props: Props) => {
                         value={repeatPassword}
                         onChange={(e) => {
                             setRepeatPasswor(e.target.value);
+                        }}
+                        color={activateValidate.validate7?"failure":undefined}
+                        helperText={activateValidate.validate7?<React.Fragment><span className="font-medium">Oops!</span>{' '}Este campo es obligatorio!</React.Fragment>:<React.Fragment>Este campo es obligatorio!</React.Fragment>}
+                        onBlur={(e:any) => { 
+                            if(e.target.value === '' || e.target.value === null){
+                                setActivateValidate({...activateValidate,validate7:true});
+                            }else{
+                                setActivateValidate({...activateValidate,validate7:false});
+                            }
                         }}
                     />
                 </div>
@@ -199,6 +266,15 @@ const FormRegister = (props: Props) => {
                         onChange={(e) => {
                             setData({ ...dataRegister, userName: e.target.value });
                         }}
+                        color={activateValidate.validate8?"failure":undefined}
+                        helperText={activateValidate.validate8?<React.Fragment><span className="font-medium">Oops!</span>{' '}Este campo es obligatorio!</React.Fragment>:<React.Fragment>Este campo es obligatorio!</React.Fragment>}
+                        onBlur={(e:any) => { 
+                            if(e.target.value === '' || e.target.value === null){
+                                setActivateValidate({...activateValidate,validate8:true});
+                            }else{
+                                setActivateValidate({...activateValidate,validate8:false});
+                            }
+                        }}
 
                     />
                 </div>
@@ -212,11 +288,19 @@ const FormRegister = (props: Props) => {
                     <TextInput
                         id="password1"
                         type="email"
-                        required={true}
                         shadow={true}
                         value={dataRegister?.addressEmail}
                         onChange={(e) => {
                             setData({ ...dataRegister, addressEmail: e.target.value });
+                        }}
+                        color={activateValidate.validate9?"failure":undefined}
+                        helperText={activateValidate.validate9?<React.Fragment><span className="font-medium">Oops!</span>{' '}Este campo es obligatorio!</React.Fragment>:<React.Fragment>Este campo es obligatorio!</React.Fragment>}
+                        onBlur={(e:any) => { 
+                            if(e.target.value === '' || e.target.value === null){
+                                setActivateValidate({...activateValidate,validate9:true});
+                            }else{
+                                setActivateValidate({...activateValidate,validate9:false});
+                            }
                         }}
                     />
                 </div>
@@ -231,13 +315,21 @@ const FormRegister = (props: Props) => {
                     <TextInput
                         id="identification"
                         type="text"
-                        required={true}
+                        required
                         shadow={true}
                         value={dataRegister?.identification}
                         onChange={(e) => {
                             setData({ ...dataRegister, identification: e.target.value });
                         }}
-
+                        color={activateValidate.validate10?"failure":undefined}
+                        helperText={activateValidate.validate10?<React.Fragment><span className="font-medium">Oops!</span>{' '}Este campo es obligatorio!</React.Fragment>:<React.Fragment>Este campo es obligatorio!</React.Fragment>}
+                        onBlur={(e:any) => { 
+                            if(e.target.value === '' || e.target.value === null){
+                                setActivateValidate({...activateValidate,validate10:true});
+                            }else{
+                                setActivateValidate({...activateValidate,validate10:false});
+                            }
+                        }}
                     />
                 </div>
 
@@ -252,9 +344,17 @@ const FormRegister = (props: Props) => {
                     <TextInput
                         id="identification"
                         type="text"
-                        required={true}
+                        required
                         shadow={true}
-
+                        color={activateValidate.validate11?"failure":undefined}
+                        helperText={activateValidate.validate11?<React.Fragment><span className="font-medium">Oops!</span>{' '}Este campo es obligatorio!</React.Fragment>:<React.Fragment>Este campo es obligatorio!</React.Fragment>}
+                        onBlur={(e:any) => { 
+                            if(e.target.value === '' || e.target.value === null){
+                                setActivateValidate({...activateValidate,validate11:true});
+                            }else{
+                                setActivateValidate({...activateValidate,validate11:false});
+                            }
+                        }}
                     />
                 </div>
 
@@ -267,7 +367,7 @@ const FormRegister = (props: Props) => {
                     </div>
                     <Select
                         id="countries"
-                        required={true}
+                        required
                         value={dataRegister?.typeUser}
                         onChange={(e) => {
                             setData({ ...dataRegister, typeUser: e.target.value });
@@ -290,7 +390,7 @@ const FormRegister = (props: Props) => {
 
                 <div className='col-span-2'>
 
-                    <Button onClick={async (e) => {
+                    <Button type='submit' onClick={async (e) => {
                         e.preventDefault();
                         setData({ ...dataRegister, fullName: await nameComplete(nombreCompleto) });
                         setAccion(!accion);
@@ -298,7 +398,8 @@ const FormRegister = (props: Props) => {
 
                 </div>
 
-            </form>
+            </form>}
+
 
         </div>
     )

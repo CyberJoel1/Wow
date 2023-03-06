@@ -5,6 +5,7 @@ import SchemaInsertPublication from '../../../../components/Publication/formatIn
 import SchemaPublication from '../../../../components/Publication/formatPublication/SchemaPublication';
 import { filterPublicationFormat } from '../../../../utils/interfaces/filterPublicationFormat';
 import { QueryPublication } from '../../../../utils/Queries/Publication/PublicationsQueries';
+import { ErrorNotification } from '../../../../utils/SweetLibrary/ErrorNotification';
 
 type Props = {}
 
@@ -20,7 +21,7 @@ const page = (props: Props) => {
         const response = await QueryPublication.findAllPublicationByType("venta",filterData);
 
         if (!response) {
-            //ErrorNotification.errorNotificationLogin("Lo lamentamos no se encontraron datos");
+            ErrorNotification.errorNotificationLogin("Lo lamentamos no se encontraron datos");
             setPublications([]);
             return;
         }

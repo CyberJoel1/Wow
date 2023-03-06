@@ -10,7 +10,7 @@ import NewComment from '../particles/NewComment'
 type Props = {
   userNameTo: string,
   idPublication: number,
-  foto: any,
+  foto?: any,
   abrirComentario: any
 }
 
