@@ -82,7 +82,7 @@ const HeaderPublication = (props: Props) => {
             <div className='w-full  flex flex-row mb-2 px-2'>
                 <div className='w-11 h-11 relative'>
                     <>
-                        <Link href={`${CONFIG.hostSelf}/social/profile/${userName}`}>
+                        <Link href={`/social/profile/${userName}`}>
                             <Avatar alt="User settings"
                                 img={foto || undefined}
                                 rounded={true} /></Link></>
