@@ -59,7 +59,7 @@ const SectionUpdate = (props: Props) => {
             const nameSeparated = response['data']['getDataProfile']['fullName'].split(" ");
             let initialValue = {
                 userName: resultado['userName'], addressEmail: resultado['addressEmail'], identification: resultado['identification'], fullName: resultado['fullName'],
-                 password:  resultado['password'], foto: resultado['foto'], dateBirth: resultado['dateBirth'] };
+                 password:  resultado['password'], foto: resultado['foto'], dateBirth:  moment(resultado['dateBirth'], "DD/MM/YYYY").toDate() };
                 let fechaDefault = (resultado['dateBirth']);
                 let fechaFinal = fechaDefault.split("/");
                  setFechaDefault(fechaFinal[2]+"-"+fechaFinal[1]+"-"+fechaFinal[0]);
