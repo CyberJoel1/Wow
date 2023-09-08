@@ -27,8 +27,29 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+# Bienvenido a Waroom (Frontend)
+	> La aplicación fue desarrollada para la presentación de mi tesis en la carrera de tecnologias de la información.
+# Arquitectura
+<div align="center">  <img src="/static/products/archivos/ArquiTes.PNG" alt="Arquitectura" width="500" height="300" style="border-radius: 50%;" />  </div>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
+# Tabla SQL (Sección de chat)
+- Esta tabla permite que se almacenen los datos del chat
+- Esta tabla se llama **chat** 
+<div align="center">  <img src="static/products/archivos/TableExampleTes.PNG" alt="Tabla Chat" width="500" height="300" style="border-radius: 50%;" />  </div>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Base de datos basada en grafos
+- La base de datos es neo4j
+- Los usuarios podrán publicar sus inmuebles lo cuál se relacionará el usuario con el inmueble
+- Además los usuarios podrán interactuar con los inmuebles ya sea de otros usuario o de ellos mismos
+- Las actividades a realizar son : 
+	- Dar like a publicaciones
+	- Comentar publicaciones
+	- Crear publicaciones
+	- Denunciar publicaciones
+	- Enviar solicitud de amistad a otro usuario
+<div align="center">  <img src="static/products/archivos/StartTes.PNG" alt="Idea inicial neo4j" width="500" height="300" style="border-radius: 50%;" />  </div>
+
+<div align="center">  <img src="/static/products/archivos/GraphTest.PNG" alt="Idea final neo4j" width="500" height="300" style="border-radius: 50%;" />  </div>
+
+
